@@ -1,9 +1,23 @@
-# Project Proposal - StoreFront
+<div><b><center>
+<font size="20">Project Proposal
 
-## CMPE 157A Team 30
+StoreFront</font></b>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<font size="4">CMPE 157A Team 30
 
-## Aaron Warren, Phu Tran, Evan Ugarte
+Aaron Warren
 
+Phu Tran
+
+Evan Ugarte</font>
+</center></div>
+---
 ---
 
 # Project Overview
