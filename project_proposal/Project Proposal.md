@@ -1,3 +1,15 @@
+# Project Proposal - StoreFront
+
+## CMPE 157A Team 30
+
+## Aaron Warren, Phu Tran, Evan Ugarte
+
+---
+
+# Project Overview
+
+For this project, we will be creating a system for customers to order food from a food court. This application would be taking the place of a physical cashier, where users would be able to order food from a web app and pick their order up when it is ready. The application will also be able to manage members, their credit card information, food inventory stock levels and item prices through a database. The stakeholders of this project are company owners who have a kitchen that takes orders, programmers who implement the application, project managers of the project, and store managers. The project is important as a business can use this application to take place of a worker, and instead hire more cooks to handle demand. This project is important as it streamlines the process of ordering food at a business. Customers will be able to clearly select food choices based on photos and descriptions, and pay for their food by credit card.
+
 
 # System Environment
 
@@ -5,9 +17,17 @@ The design of our system environment includes the use of a Linux based machine t
 
 # Functional Requirements
 
-### Functional Processes
+The users of our system will be anyone who wishes to purchase food from a store. As a result, users are store customers of varying age and gender. Users will be able to access our system from a website, and use a keyboard and mouse to navigate options. Features for the StoreFront application include users being able to make an account, select multiple items to purchase, modify payment information nand update their personal account info.
 
->Insert the flowcharts here
+## Processes Diagrams
+
+### Checking Out
+
+<img src="./checkout_process.png" />
+
+### Logging In
+
+<img src="./process_diagram.png" />
 
 # Non-functional Requirements
 
