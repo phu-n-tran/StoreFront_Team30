@@ -3,39 +3,47 @@
 <br />
 <br />
 <br />
-<div><b><center>
-<font size="20">Project Proposal
+<div><b>
+<center><font size="20">Project Proposal</font></center>
+<br />
+<center><font size="20">StoreFront</font></center></b>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<center><font size="4">CMPE 157A Team 30</font>
 
-StoreFront</font></b>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<font size="4">CMPE 157A Team 30
+<center><font size="4">Aaron Warren</font>
 
-Aaron Warren
+<center><font size="4">Phu Tran</font>
 
-Phu Tran
-
-Evan Ugarte</font>
+<center><font size="4">Evan Ugarte</font>
 </center></div>
----
----
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 # Project Overview
 
@@ -48,7 +56,22 @@ The design of our system environment includes the use of a Linux based machine t
 
 # Functional Requirements
 
-The users of our system will be anyone who wishes to purchase food from a store. As a result, users are store customers of varying age and gender. Users will be able to access our system from a website, and use a keyboard and mouse to navigate options. Features for the StoreFront application include users being able to make an account, select multiple items to purchase, modify payment information nand update their personal account info.
+The users of our system will be anyone who wishes to purchase food from a store. As a result, users are store customers of varying age and gender. Users will be able to access our system from a website, and use a keyboard and mouse to navigate options. Features for the StoreFront application include users being able to make an account, select multiple items to purchase, modify payment information and update their personal account info.
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 ## Processes Diagrams
 
@@ -59,6 +82,11 @@ The users of our system will be anyone who wishes to purchase food from a store.
 ### Logging In
 
 <img src="./process_diagram.png" />
+
+<br />
+<br />
+<br />
+<br />
 
 # Non-functional Requirements
 
