@@ -44,6 +44,10 @@
 <br />
 <br />
 <br />
+<br />
+<br />
+<br />
+<br />
 
 # Project Overview
 
@@ -54,30 +58,48 @@ For this project, we will be creating a system for customers to order food from 
 
 The design of our system environment includes the use of a Linux based machine to house our database application. This linux server will host an apache webserver that will be serving our application to the users. The database that we will use will be created and maintained by a mySQL DBMS. The front-end application will be written using React.js. The front-end will then communicate with the database using python scripts. Overall, this project will require knowledge of mySQL, Python, and React.js to arrive at completion. 
 
+<img src="./3tier_architecture.png" />
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
 # Functional Requirements
 
 The users of our system will be anyone who wishes to purchase food from a store. As a result, users are store customers of varying age and gender. Users will be able to access our system from a website, and use a keyboard and mouse to navigate options. Features for the StoreFront application include users being able to make an account, select multiple items to purchase, modify payment information and update their personal account info.
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 
 ## Processes Diagrams
 
 ### Checking Out
 
 <img src="./checkout_process.png" />
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 ### Logging In
 
