@@ -79,6 +79,12 @@ The design of our system environment includes the use of a Linux based machine t
 
 The users of our system will be anyone who wishes to purchase food from a store. As a result, users are store customers of varying age and gender. Users will be able to access our system from a website, and use a keyboard and mouse to navigate options. Features for the StoreFront application include users being able to make an account, select multiple items to purchase, modify payment information and update their personal account info.
 
+### Functional requirements features will include:
+- User will be able to create a new account or sign in using their existing account
+- User will be able to browse, select, or delete the items that they want to purchase
+- User will be able to select, add, or modify their payment methods
+- User will be able to update their account
+
 
 ## Processes Diagrams
 
