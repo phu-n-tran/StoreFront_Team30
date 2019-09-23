@@ -56,22 +56,10 @@ For this project, we will be creating a system for customers to order food from 
 
 # System Environment
 
-The design of our system environment includes the use of a Linux based machine to house our database application. This linux server will host an apache webserver that will be serving our application to the users. The database that we will use will be created and maintained by a mySQL DBMS. The front-end application will be written using React.js. The front-end will then communicate with the database using python scripts. Overall, this project will require knowledge of mySQL, Python, and React.js to arrive at completion. 
+The design of our system environment includes the use of a Linux based machine to house our database application. This linux server will host an apache webserver that will be serving our application to the users. The database that we will use will be created and maintained by a mySQL DBMS. The front-end application will be written using React.js. The front-end will then communicate with the database through the business logic tier, written in Node.js. Overall, this project will require knowledge of mySQL, Node.js, and React.js to arrive at completion. 
 
 <img src="./3tier_architecture.png" />
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 <br />
 <br />
 
