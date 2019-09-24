@@ -66,7 +66,7 @@ The design of our system environment includes the use of a Linux based machine t
 ### RDBMS
 - MySQL Community Server
 ### Application Languages
-- Java, Node.js, ReactJS, JavaScript, HTML/CSS
+- Node.js, ReactJS, JavaScript, HTML/CSS
 
 <br />
 <br />
@@ -96,6 +96,10 @@ Our system is designed for customers of all ages and genders. The system is desi
   - Users will be able to use system's search tab to search for specific items by item fields, such as category or name.
   - After a search is entered, the system will access the database to find all appropriate items. The results of the query will be displayed to the user. If the query returned a total of zero items, then a message will be displayed to let the user know.
 
+- View cart
+  - The system will display a cart button to the user which upon being clicked will redirect to the cart page.
+  - Users will be able to see all items added to the cart plus the total price.
+
 - Selecting and adding items in the cart
   - Users can select the items that they are interested in and add them to the cart to purchase later.
   - The system will keep track of current items in the cart for later use and only remove when the user deletes or purchases the item from the shopping cart.
@@ -124,21 +128,27 @@ Our system is designed for customers of all ages and genders. The system is desi
   - Users will be able to view all the credit card(s) that have saved in the system including: card number, card type, holder name, CVV, and card expiration date.
   - The system will access the database to retrieve the data in the corresponding entity and display the information through the application UI.
 
-- Viewing password
-  - Users can see their password display directly on the screen without any protected layer.
-  - The system will access the database, re-hash the password to it original format and display it on the screen.
+- Viewing email
+  - Users can see their email displayed directly on the screen with a protected layer concealing some of the characters.
+  - The system will access the database to retrieve the user's email and display it on the screen.
+
+- Changing email
+  - Users can change their email by confirming both an older email and a new email.
+  - The system will check if the user provided the old email correctly with the database. If yes, replace the new email with the old one. Otherwise, keep the old email and display an error message through the screen.
 
 - Changing password
   - Users can change their password by providing both an older password and a new password.
-  - The system will check if users provide the old password correctly with the database. If yes, replace the new password with the old one. Otherwise, keep the old password and display an error message through the screen
+  - The system will check if the user provided the old password correctly with the database. If yes, replace the new password with the old one. Otherwise, keep the old password and display an error message through the screen.
 
 - Purchasing items
-  - Users will be able to purchase their current cart of items using a new/existing payment method
+  - Users will be able to purchase their current cart of items using a new/existing payment method.
+  - The system will display the cart's total price to the user.
   - The system will decrement the item(s) entity data to denote that there is less stock of said item.
 
 - View Past Orders
-  - Users will be able to see orders that they made in the past
-  - The system will maintain a list of orders that the user made and return them on request
+  - Users will be able to see orders that they made in the past.
+  - The system will maintain a list of orders that the user made and return them on request.
+  - Users will be able to view past orders as a list and click on an entry to view all details.
 
 
 # Non-functional Requirements
