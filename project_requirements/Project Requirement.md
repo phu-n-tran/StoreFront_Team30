@@ -115,20 +115,20 @@ Our system is designed for customers of all ages and genders. The system is desi
   - The system will retrieve all payment options of the user and present it to them upon checking out items.
 
 - View account information
-  - Users will be able to view their username, password (which may hidden unless specify by user), and other personal information such as date of birth through the application user interface.
+  - Users will be able to view their username, password (which may hidden unless specified by user), and other personal information such as date of birth through the application user interface.
   - The system will access the database to retrieve the data in the corresponding entity and display the information through the application UI.
 
 - View payment methods information
-  - Users will be able to view all the credit card(s) that have save in the system including: card number, card type, holder name, CVV, and card expiration date.
+  - Users will be able to view all the credit card(s) that have saved in the system including: card number, card type, holder name, CVV, and card expiration date.
   - The system will access the database to retrieve the data in the corresponding entity and display the information through the application UI.
 
 - Viewing password
-  - By answer some credential questions correctly, users can see their password display directly on the screen without any protected layer.
-  - After confirm the questions answered correctly, the system will access the database, re-hash the password to it original format and display it on the screen.
+  - Users can see their password display directly on the screen without any protected layer.
+  - The system will access the database, re-hash the password to it original format and display it on the screen.
 
 - Changing password
-  - By answer some credential questions correctly, user can change their password by providing both an older password and a new password.
-  - After confirm the questions answered corretly, the system will check if users provide the old password correctly. If yes, replace the new password with the old one. Otherwise, keep the old password and display an error message through the screen
+  - Users can change their password by providing both an older password and a new password.
+  - The system will check if users provide the old password correctly with the database. If yes, replace the new password with the old one. Otherwise, keep the old password and display an error message through the screen
 
 
 
