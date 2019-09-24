@@ -55,7 +55,7 @@ The goal of this project is to create a food ordering system for customers at a 
 <br />
 
 # System Environment
-The design of our system environment includes the use of a Linux based machine to house our database application. This linux server will host an Node.js webserver that will be serving our application to the users. The database that we will use will be created and maintained by a mySQL DBMS. The front-end application will be written using React.js. The front-end will then communicate with the database through the business logic tier, written in Node.js. Overall, this project will require knowledge of mySQL, Node.js, and React.js to arrive at completion.
+The design of our system environment includes the use of a Linux based machine to house our database application. This Linux machine will host an Node.js webserver that will be serving our application to the users. The database that we will use will be created and maintained by a MySQL DBMS. The front-end application will be written using React.js. The front-end will then communicate with the database through the business logic tier, written in Node.js. Overall, this project will require knowledge of MySQL, Node.js, and React.js to arrive at completion.
 
 <br />
 
@@ -99,7 +99,7 @@ Our system is designed for customers of all ages and genders. The system is desi
   - The system will keep track of current items in the cart for later use and only remove when the user deletes or purchases the item from the shopping cart.
 
 - Deleting items in the cart
-  - Users can remove/delete any existing item inside their shopping cart that they are no longer want.
+  - Users can remove/delete any existing item inside their shopping cart that they no longer want.
   - The System will access a particular relation in the database and delete the entity of the item(s) that the user specified to remove.
 
 - Add new payment methods
