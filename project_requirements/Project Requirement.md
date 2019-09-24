@@ -81,37 +81,59 @@ Our system is designed for customers of all ages and genders. The system is desi
 - Create account/sign-up
   - Users will be able to create their account by entering their email, password, and additional information such as name. For those who already have an account and try to sign-up for a new one, the website will display a message alerting the user that their email is already in use for an existing account.
   - The system will check if a user's email and username already exists in the database. If email/username wasn't found, the system will write the new email and password to the database and display a message to the users letting them know that they have successfully created an account. If an email exists or is invalid, the system will display an error message to let users know that their account was not able to be created.
-- Login/Sign Up
-  - Users can login to the webpage by entering their email and password.
+
+- Login/Sign-in
+  - Users can login to the webpage by entering their registered email as the username and password.
   - The system will check to see if the given email and its associated password are the same with the information that are stored in the database. If it is, the system will allow the user to access their account. If it is not, the system will display an error message through the webpage to let the user know if the email or password is incorrect.
+
 - Browse items
   - Users will be able to view all of the items in the database through the StoreFront webpage. Each item will have an associated image, name and price.
   - To display the items to the user, the system will access the item entity set in the database and return all of the values in the table.
+
 - Search items
   - Users will be able to use system's search tab to search for specific items by item fields, such as category or name.
   - After a search is entered, the system will access the database to find all appropriate items. The results of the query will be displayed to the user. If the query returned a total of zero items, then a message will be displayed to let the user know.
+
 - Selecting and adding items in the cart
   - Users can select the items that they are interested in and add them to the cart to purchase later.
   - The system will keep track of current items in the cart for later use and only remove when the user deletes or purchases the item from the shopping cart.
+
 - Deleting items in the cart
-  - Users can remove any item that they no longer want from the their shopping cart.
+  - Users can remove/delete any existing item inside their shopping cart that they are no longer want.
   - The System will access a particular relation in the database and delete the entity of the item(s) that the user specified to remove.
+
 - Add new payment methods
   - Users will be able to add a new credit card as a method payment by entering card number, card type, holder name, CVV (card verification value), and card expiration date.
   - System will check with the database to see if the card number already exist or not. If so, the user will be notified that this payment method already exists. If it does not, store all this information in a secure way in the database
+
 - Delete payment methods
   - User will be able to delete exist payment method of their choice.
   - System will access the database and delete the entity that match the value that the user selected.
+
 - Select payment methods
   - Users can select already existing methods that they have created to check out their order faster.
   - The system will retrieve all payment options of the user and present it to them upon checking out items.
-- Editing updating account information
-  - Users will be able change their password, username, and payment options through the application UI.
-  - The system will access the database and modify the entity inside a particular relation according to the information that is to be changed.
+
+- View account information
+  - Users will be able to view their username, password (which may hidden unless specify by user), and other personal information such as date of birth through the application user interface.
+  - The system will access the database to retrieve the data in the corresponding entity and display the information through the application UI.
+
+- View payment methods information
+  - Users will be able to view all the credit card(s) that have save in the system including: card number, card type, holder name, CVV, and card expiration date.
+  - The system will access the database to retrieve the data in the corresponding entity and display the information through the application UI.
+
+- Viewing password
+  - By answer some credential questions correctly, users can see their password display directly on the screen without any protected layer.
+  - After confirm the questions answered correctly, the system will access the database, re-hash the password to it original format and display it on the screen.
+
+- Changing password
+  - By answer some credential questions correctly, user can change their password by providing both an older password and a new password.
+  - After confirm the questions answered corretly, the system will check if users provide the old password correctly. If yes, replace the new password with the old one. Otherwise, keep the old password and display an error message through the screen
+
+
 
 <br />
 <br />
-
 
 
 # Non-functional Requirements
