@@ -55,7 +55,7 @@ The goal of this project is to create a food ordering system for customers at a 
 <br />
 
 # System Environment
-The design of our system environment includes the use of a Linux based machine to house our database application. This Linux machine will host an Node.js webserver that will be serving our application to the users. The database that we will use will be created and maintained by a MySQL DBMS. The front-end application will be written using React.js. The front-end will then communicate with the database through the business logic tier, written in Node.js. Overall, this project will require knowledge of MySQL, Node.js, and React.js to arrive at completion.
+The design of our system environment includes the use of a Linux based machine to house our database application. This Linux machine will host a Node.js webserver that will be serving our application to the users. The database that we will use will be created and maintained by a MySQL DBMS. The front-end application will be written using React.js. The front-end will then communicate with the database through the business logic tier, written in Node.js. Overall, this project will require knowledge of MySQL, Node.js, and React.js to arrive at completion.
 
 <br />
 
