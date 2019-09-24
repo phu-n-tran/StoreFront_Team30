@@ -50,7 +50,7 @@
 <br />
 
 # Project Description
-XXXXXXXX
+The goal of this project is to create a food ordering system for customers at a food court. The motivation of this project is to help streamline the process for customers to order food. The process of food ordering will be sped up as customers will be able to clearly select what they wish to order from photos, food names and prices. Stake holders of this project will include the owners and managers of food businesses as they would be using the product to sell food. Additional stakeholders include the programmers who implement the application and project managers of the project. Benefits to users include an improved expereince to order food. This improved experience will come from menus being easier to read with large photos and text being presented on a screen. Additional contributions to the experience will include having existing payment information be stored in the system so the user can checkout faster. In addition to the improved experience, users will likely spend less time in line as the system can reduce the amount of time spend ordering food.
 
 
 
@@ -76,40 +76,40 @@ XXXXXXXX
 <br />
 
 # Functional Requirements
-Our system is design for customers of all ages and gender. The system is design and target everyone ranging from those who wishes to purchase food from a store to those who just want to browse the items on the webpage. Users can access the website anytime and anywhere as long as they have access to the internet and any device that can connect to the browser and internet such as desktop, mobile phone, etc. There are two types of general users for this StoreFront application: registered and unregister users. As for the registered user, they can enjoy all of the features of the StoreFront application including browsing, select multiple items to purchase, add to shopping cart for later purchase, save favorate items, modify payment information/method, and update their personal account information.
+Our system is designed for customers of all ages and genders. The system is designed to target everyone from those who wish to purchase food from a store to those who just want to merely browse the list of available items. Users can access the website from anywhere, as long as they have access to the internet and an appropriate device such as a desktop computer or mobile phone. There are two types of general users for this StoreFront application: registered and unregistered users. The registered user can enjoy all of the features of the StoreFront application, which includes browsing, selecting multiple items to purchase to add them to shopping cart, save favorite items, modify payment information and update their personal account information.
 
 
-### Functional requirements features will include:
+### Functional Requirements:
 - Create account/sign-up
-  - Users will be able to create their account by entering their email which is the username, password, and other additional information. As for those who already have an account, but still try to sign-up for one, the website will display the message that letting the user know if their email has already been use to account an account before.
-  - The system will check if the email and username already exist in the database. If email/username did not exist, the system will record their information inside the database in a secure way especially for their username and password and display a message to the webpage to let users know that they have create an account successfully. If email/username did exist, the system will display an error message to let users know that they have unsuccessfully create an account.
-- Login/sign in
-  - Users can login to the webpage by entering their username and password.
-  - The system will check to see if the given username and its associated password are the same with the information that are stored in the database. If it is, the system will allow the users to access their account. If it is not, the system will display an error message through the webpage to let the user know what is wrong.
+  - Users will be able to create their account by entering their email, password, and additional information such as name. For those who already have an account and try to sign-up for a new one, the website will display a message alerting the user that their email is already in use for an existing account.
+  - The system will check if a user's email and username already exists in the database. If email/username wasn't found, the system will write the new email and password to the database and display a message to the users letting them know that they have successfully created an account. If an email exists or is invalid, the system will display an error message to let users know that their account was not able to be created.
+- Login/Sign Up
+  - Users can login to the webpage by entering their email and password.
+  - The system will check to see if the given email and its associated password are the same with the information that are stored in the database. If it is, the system will allow the user to access their account. If it is not, the system will display an error message through the webpage to let the user know if the email or password is incorrect.
 - Browse items
-  - Users can check out all the items that are displaying on the webpage including the image of the item, its name, and price.
-  - The system will access the information in the database to display the popular items in a specific format on the webpage for the user to see when they first login to the page.
+  - Users will be able to view all of the items in the database through the StoreFront webpage. Each item will have an associated image, name and price.
+  - To display the items to the user, the system will access the item entity set in the database and return all of the values in the table.
 - Search items
-  - Users can use the system's search engine to search for specific items such as by category, name, etc.
-  - The system will access the database, sort out specific items, and display it as the result of the user search. If the items user looking for does not exist or out of stock, display a notify message to let users know.
-- Select items/add items in the cart
-  - Users can select the items that they are interested and add to the cart to purchase later while continue to browse the shop.
-  - System will keep track of current items in the cart inside the database for later use and only remove when the user delete the items or they have ordered the item(s).
-- Delete items in the cart
+  - Users will be able to use system's search tab to search for specific items by item fields, such as category or name.
+  - After a search is entered, the system will access the database to find all appropriate items. The results of the query will be displayed to the user. If the query returned a total of zero items, then a message will be displayed to let the user know.
+- Selecting and adding items in the cart
+  - Users can select the items that they are interested in and add them to the cart to purchase later.
+  - The system will keep track of current items in the cart for later use and only remove when the user deletes or purchases the item from the shopping cart.
+- Deleting items in the cart
   - Users can remove any item that they no longer want from the their shopping cart.
-  - The System will access a particular relation in the database and delete the entity of the specify item(s) that the user wishes to remove.
-- Add new payment method
+  - The System will access a particular relation in the database and delete the entity of the item(s) that the user specified to remove.
+- Add new payment methods
   - Users will be able to add a new credit card as a method payment by entering card number, card type, holder name, CVV (card verification value), and card expiration date.
-  - System will check with the database to see if the card number already exist or not. If it is, let the user know that this payment method already exist through the website. If it not, store all this information in a secure way in the database
-- Delete payment method
+  - System will check with the database to see if the card number already exist or not. If so, the user will be notified that this payment method already exists. If it does not, store all this information in a secure way in the database
+- Delete payment methods
   - User will be able to delete exist payment method of their choice.
   - System will access the database and delete the entity that match the value that the user selected.
-- Select payment method
-  - Users can select already exists method that they have created to check out their order faster.
-  - System will use the data in the user chosen payment method to access the database, retrieve the card information, and charge the user according to the cost of items that are currently in the cart.
-- Edit/update account information
-  - Users can change their password, username, and other personal information such as date of birth.
-  - After ask for additional information to verify the user, system will access the database and modify the entity inside a particular relation according to the changing information.
+- Select payment methods
+  - Users can select already existing methods that they have created to check out their order faster.
+  - The system will retrieve all payment options of the user and present it to them upon checking out items.
+- Editing updating account information
+  - Users will be able change their password, username, and payment options through the application UI.
+  - The system will access the database and modify the entity inside a particular relation according to the information that is to be changed.
 
 <br />
 <br />
