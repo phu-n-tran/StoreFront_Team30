@@ -50,7 +50,7 @@
 <br />
 
 # Project Description
-The goal of this project is to create a food ordering system for customers at a food court. The motivation of this project is to help streamline the process for customers to order food. The process of food ordering will be sped up as customers will be able to clearly select what they wish to order from photos, food names and prices. Stake holders of this project will include the owners and managers of food businesses as they would be using the product to sell food. Additional stakeholders include the programmers who implement the application and project managers of the project. Benefits to users include an improved expereince to order food. This improved experience will come from menus being easier to read with large photos and text being presented on a screen. Additional contributions to the experience will include having existing payment information be stored in the system so the user can checkout faster. In addition to the improved experience, users will likely spend less time in line as the system can reduce the amount of time spend ordering food.
+The goal of this project is to create a food ordering system for customers at a food court. The motivation of this project is to help streamline the process for customers to order food. The process of food ordering will be sped up as customers will be able to clearly select what they wish to order from photos, food names and prices. Stake holders of this project will include the owners and managers of food businesses as they would be using the product to sell food. Additional stakeholders include the programmers who implement the application and project managers of the project. Benefits to users include an improved experience to order food. This improved experience will come from menus being easier to read with large photos and text being presented on a screen. Additional contributions to the experience will include having existing payment information be stored in the system so the user can checkout faster. In addition to the improved experience, users will likely spend less time in line as the system can reduce the amount of time spend ordering food.
 
 <br />
 
@@ -74,8 +74,10 @@ The design of our system environment includes the use of a Linux based machine t
 
 
 # Functional Requirements
-Our system is designed for customers of all ages and genders. The system is designed to target everyone from those who wish to purchase food from a store to those who just want to merely browse the list of available items. Users can access the website from anywhere, as long as they have access to the internet and an appropriate device such as a desktop computer or mobile phone. There are two types of general users for this StoreFront application: registered and unregistered users. The registered user can enjoy all of the features of the StoreFront application, which includes browsing, selecting multiple items to purchase to add them to shopping cart, save favorite items, modify payment information and update their personal account information.
+Our system is designed for customers of all ages and genders. The system is designed to target everyone from those who wish to purchase food from a store to those who just want to merely browse the list of available items. Users can access the website from anywhere, as long as they have access to the internet and an appropriate device such as a desktop computer or mobile phone. There are two types of general users for this StoreFront application: registered and unregistered users. The registered user can enjoy all of the features of the StoreFront application, which includes browsing, selecting multiple items to purchase to add them to shopping cart, save favorite items, modify payment information and update their personal account information. Unregistered users will only be able to browse the various items, if they wish to purchase something then they will be prompted to create and account to complete the transaction.
 
+
+<br />
 
 ### Functional Requirements:
 - Create account/sign-up
@@ -99,7 +101,7 @@ Our system is designed for customers of all ages and genders. The system is desi
   - The system will keep track of current items in the cart for later use and only remove when the user deletes or purchases the item from the shopping cart.
 
 - Deleting items in the cart
-  - Users can remove/delete any existing item inside their shopping cart that they no longer want.
+  - Users can remove/delete any existing item inside their shopping cart that they no longer want to purchase.
   - The System will access a particular relation in the database and delete the entity of the item(s) that the user specified to remove.
 
 - Add new payment methods
@@ -130,18 +132,23 @@ Our system is designed for customers of all ages and genders. The system is desi
   - Users can change their password by providing both an older password and a new password.
   - The system will check if users provide the old password correctly with the database. If yes, replace the new password with the old one. Otherwise, keep the old password and display an error message through the screen
 
+- Purchasing items
+  - Users will be able to purchase their current cart of items using a new/existing payment method
+  - The system will decrement the item(s) entity data to denote that there is less stock of said item.
 
-
-<br />
-<br />
+- View Past Orders
+  - Users will be able to see orders that they made in the past
+  - The system will maintain a list of orders that the user made and return them on request
 
 
 # Non-functional Requirements
 - Security
-  - Users's login information, username and password, as well as their payment method information will not be store directly inside the database. Instead, we will generate a key know as salt (the term use in cybersecurity) and add it to these information and then hash it. We will then use the result of the hashes to store inside the database. By doing this, we can minimize the users' information from leaking out in case the database get hacked or hijacked.
+  - Users login information, username and password, as well as their payment method information will not be store directly inside the database. Instead, we will generate a key know as salt (the term use in cyber-security) and add it to these information and then hash it. We will then use the result of the hashes to store inside the database. By doing this, we can minimize the users' information from leaking out in case the database get hacked or hijacked.
 - Access Control
   - Each user will only be able to view their own information which includes email and userID. A user will not be able to see their own password which can only be changed and not read. Each user will have control over only their own information and not be able to view another users info under any circumstance. 
 - Performance and Stability
   - The system will be able to handle a large amount of users through various techniques which include usage of balance switches if user counts turn out to be too high. If the system gets too overloaded, then we will design a method to distribute server load across different servers to help balance the load.
 - User Interface
-  - Our user interface will make use of various techniques that should allow for better usability. This includes not overwhelming a user with too many options, active feedback based on what is being done, as well as ensuring that users have an easy time using our website. On top of this we will ensure that our UI (user interface) is consistent and simple across the board to allow both new and old users an easier time using our website.
+  - Our user interface will make use of various techniques that should allow for better usability learned throughout Human Computer Interaction. This includes a variety of features one of which is making sure that the user does not feel overwhelmed with a bunch of different choices. We will attempt to ensure that in menu options we do not display more than 9 options to a user to ensure that it aligns with HCI principles. Another feature that we will attempt to implement is feedback whenever an action is taken to ensure that the user knows that they did something. This could be something as simple as updating a cart in real-time when the user adds an item to it. Another thing we will make sure of is that our user interface is consistent and simple across the board to allow both new and old users an easier time using our website. This may include things such as the usage of a shopping cart image that can be clicked to access the shopping cart or 3 stacked bars that can be clicked to access the side-bar.
+- Ease of Use
+  - The interface should be easy to use regardless of what potential disabilities a person may have. This may include allowing the usage of arrow keys to attempt to browse our website or common keys to do various things, such as using "esc" to exit from the current screen overlay or "enter" to access the currently selected hyperlink.
