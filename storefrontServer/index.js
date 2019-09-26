@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 
 app.get('/',(req,res) =>{
-    res.send("Backend for StoreFront");
+
 });
 
 
@@ -24,7 +24,9 @@ app.get('/tempTables', (req,res) =>{
 
 app.get('/tempTables/add', (req,res) =>{
     const { name, age, dob } = req.query;
-    db.query(`INSERT INTO Temp (name, age, dob) VALUES('${name}', ${age}, '${dob}')`, (err, results) =>{
+    dobY = 2019 - age;
+    dobQ = dobY + "-1-1";
+    db.query(`INSERT INTO Temp (name, age, dob) VALUES('${name}', ${age}, '${dobQ}')`, (err, results) =>{
         if(err) res.send(err);
         else res.send(`Successfully added ${name} of age ${age} into the table`);
     });
