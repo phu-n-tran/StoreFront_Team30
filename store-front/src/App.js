@@ -2,33 +2,22 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// function App() {
 class App extends Component{
 
   state = {
     people: []
   };
 
-componentDidMount(){
-  this.getData();
-};
+  componentDidMount(){
+    this.getData();
+  };
 
-getData = _ =>{
-  fetch('http://ec2-54-153-103-160.us-west-1.compute.amazonaws.com:4000/tempTables')
-  .then(response => response.json())
-  .then(response => this.setState({ people: response.data }))
-  .catch(err => console.error(err));
-}
-
-  // return (
-  //   <div className="App">
-  //     {people.map(id, name, age, dob =>
-  //       <div key={people.id}>
-
-  //       </div>
-  //       )}
-  //   </div>
-  // );
+  getData = _ =>{
+    fetch('http://ec2-54-153-103-160.us-west-1.compute.amazonaws.com:4000/tempTables')
+    .then(response => response.json())
+    .then(response => this.setState({ people: response.data }))
+    .catch(err => console.error(err));
+  }
 
   renderData = ({ id, name, age, dob }) => <div style={{textAlign:"left"}} key={id}>{id}, {name}, {age}</div>
 
