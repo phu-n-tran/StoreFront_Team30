@@ -14,7 +14,7 @@ componentDidMount(){
 };
 
 getData = _ =>{
-  fetch('http://localhost:4000/tempTables')
+  fetch('http://ec2-54-153-103-160.us-west-1.compute.amazonaws.com:4000/tempTables')
   .then(response => response.json())
   .then(response => this.setState({ people: response.data }))
   .catch(err => console.error(err));
