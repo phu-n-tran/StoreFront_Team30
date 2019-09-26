@@ -5,7 +5,7 @@ import Employees from "./Employees";
 class EmployeeTable extends Component {
 
   state = {
-    columnNames: ["ID", "Name", "Age"],
+    columnNames: ["", "ID", "Name", "Age"],
     newPerson: {
       name: "",
       age: ""
