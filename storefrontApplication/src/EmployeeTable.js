@@ -31,7 +31,7 @@ class EmployeeTable extends Component {
 
   submitNewUser = () => {
     fetch(`http://ec2-54-153-103-160.us-west-1.compute.amazonaws.com:4000/tempTables/add?name=
-    ${this.state.newPerson.name}&age=${this.state.newPerson.age}&dob=${"1992-2-1"}`)
+    ${this.state.newPerson.name}&age=${this.state.newPerson.age}`)
     .then(this.getData())
     .catch(err => console.error(err));
     let temp = {
