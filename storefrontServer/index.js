@@ -1,31 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
+var db = require('./db')
 
 const app = express();
-
-const connection = mysql.createConnection({
-    port: "3306",
-    host: "storefront.clcipke8dynd.us-west-1.rds.amazonaws.com",
-    user: "root",
-    password: "$aaronphuevanteam30storefront#",
-});
-
-connection.connect(err =>{
-    if(err){
-        return err;
-    }
-});
 
 app.use(cors());
 
 app.get('/',(req,res) =>{
-    
+    res.send("Backend for StoreFront");
 });
 
+
 app.get('/tempTables', (req,res) =>{
-    connection.query("use CS157ATest");
-    connection.query("SELECT * FROM Temp", (err, results) =>{
+    db.query("SELECT * FROM Temp", (err, results) =>{
         if(err) res.send(err);
         else{
             return res.json({
@@ -37,10 +24,17 @@ app.get('/tempTables', (req,res) =>{
 
 app.get('/tempTables/add', (req,res) =>{
     const { name, age, dob } = req.query;
-    connection.query("use CS157ATest");
-    connection.query(`INSERT INTO Temp (name, age, dob) VALUES('${name}', ${age}, '${dob}')`, (err, results) =>{
+    db.query(`INSERT INTO Temp (name, age, dob) VALUES('${name}', ${age}, '${dob}')`, (err, results) =>{
         if(err) res.send(err);
         else res.send(`Successfully added ${name} of age ${age} into the table`);
+    });
+})
+
+app.get('/tempTables/remove', (req,res) =>{
+    const { id } = req.query;
+    db.query(`DELETE FROM Temp where id = ${id}`, (err, results) =>{
+        if(err) res.send(err);
+        else res.send(`Successfully deleted entry ${id} from the table`);
     });
 })
 
