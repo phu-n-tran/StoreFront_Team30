@@ -20,3 +20,9 @@
 .App-link {
   color: #09d3ac;
 }
+
+.Employee-entry {
+  border-collapse: collapse;
+  border: solid 1px rgb(180, 180, 180);
+  padding: 8px;
+}
