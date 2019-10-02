@@ -1,0 +1,16 @@
+- Phu
+  - Customer
+  - Owns
+  - Account
+  - Holds
+  - Card Info
+  - Make
+  - Orders
+- Aaron
+  - Item
+  - has
+  - contains
+- Evan 
+  - Item Stock Levels
+  - belongs
+  - Item Categories

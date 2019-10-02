@@ -64,13 +64,13 @@
 6. Item Stock Levels
 -  Item ID, stock date, quantity
 - Relation: Item
-7. Prices
+7. ~~Prices~~
 - Item ID, price
 - Relation: Item
-8. Checkout
+8. ~~Checkout~~
 - Item ID, Member ID, Order ID, Payment
 - Relation: Account, Item
-9. Payments
+9. ~~Payments~~
 - Member ID, list of card id  
 - Relation: Account, checkout
 10. Card info
