@@ -1,3 +1,7 @@
+# Project Design Diagram
+## CS 157A Team 30
+## Aaron Warren, Phu Tran, Evan Ugarte
+
 # Entity Sets
 ## Customer
 - This entity set contains the users' general information such as user's name, address, phone number and member ID. The member ID is the primary key for the entity set Customer. It shared a one to one relationship with the entity set Account.
@@ -37,6 +41,15 @@
 
 ## Belongs
 - This is a relationship between Item and Item Categories. The relationship is many to many, as Items can have multiple categories and categories have multiple items.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <br/>
 <br/>
 <br/>
