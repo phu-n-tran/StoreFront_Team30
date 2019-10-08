@@ -8,5 +8,5 @@
   - nodemon index.js
 - Step 2:
   - Open a new terminal/command prompt
-  - cd ./store-front
+  - cd ./storefrontApplication
   - npm start
