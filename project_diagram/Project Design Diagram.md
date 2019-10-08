@@ -10,6 +10,17 @@
   - Item
   - has
   - contains
+
+# Entity Sets
+## Item
+- This entity holds the relevant information for each item which includes the name, price, category id, and item id. The primary key for each entity is the item ID. The entity set shares a one-to-one relationship with the item stock levels entity set.
+
+# Relationships
+## has
+- This relationship has a one-to-one relation between the entity sets Item and Item Stock Levels. It is one-to-one because each item will only have a single stock level to maintain the quantity of each item in the warehouse.
+## contain
+- This relationship has a one-to-many relation between the entity sets Orders and Item. It is one-to-many because each order can hold many different items. The reason for this is because a person is not restricted to buying only a single item.
+
 - Evan 
   - Item Stock Levels
   - belongs
