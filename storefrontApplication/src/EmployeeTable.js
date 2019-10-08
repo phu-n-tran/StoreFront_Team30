@@ -30,7 +30,8 @@ class EmployeeTable extends Component {
   }
 
   submitNewUser = () => {
-    fetch(`http://ec2-54-153-103-160.us-west-1.compute.amazonaws.com:4000/tempTables/add?name=
+    fetch(`http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables/add?name=
+    
     ${this.state.newPerson.name}&age=${this.state.newPerson.age}`)
     .then(this.getData())
     .catch(err => console.error(err));
@@ -67,14 +68,14 @@ class EmployeeTable extends Component {
   }
 
   removeEntry = (id) => {
-    fetch(`http://ec2-54-153-103-160.us-west-1.compute.amazonaws.com:4000/tempTables/remove?id=${id}`)
+    fetch(`http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables/remove?id=${id}`)
       .then(this.getData())
       .catch(err => console.error(err));
     
   }
 
   getData = () => {
-    fetch('http://ec2-54-153-103-160.us-west-1.compute.amazonaws.com:4000/tempTables')
+    fetch('http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables')
       .then(response => response.json())
       .then(response => this.setState({ people: response.data }))
       .catch(err => console.error(err));
