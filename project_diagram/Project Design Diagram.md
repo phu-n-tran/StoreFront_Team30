@@ -15,6 +15,19 @@
   - belongs
   - Item Categories
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   # Entity Sets
 
   ## Customer
