@@ -7,16 +7,16 @@
 # E/R Diagram Description
 ## Entity Sets
 ### Customer
-- This entity set contains the users' general information such as user's name, address, phone number and member ID. The member ID is the primary key for the entity set Customer. It shared a one to one relationship with the entity set Account.
+- This entity set contains the user's general information such as user's name, address, phone number and member ID. The member ID is the primary key for the entity set Customer. It shares a one to one relationship with the entity set Account.
 
 ### Account
-- This entity set holds the user's account information where its key is account ID. This entity set shares 3 relationship with the other entity sets such as one to one relationship with entity set Customer, one to many relationship with entity set Card Info and another one to many relationship with the entity set Orders.
+- This entity set holds the user's account information where its primary key is account ID. This entity set shares 3 relationships with the other entity sets such as a one to one relationship with entity set Customer, a one to many relationship with entity set Card Info and another one to many relationship with the entity set Orders.
 
 ### Card Info
-- This entity set contains the user's card payments information where the key is the Card ID. This entity set shares an one to many relationship with the entity set Account.
+- This entity set contains the user's card payment information where the primary key is the Card ID. This entity set shares an one to many relationship with the entity set Account.
 
 ### Orders
-- This entity set represent the user's shopping cart where the key will be its order ID attribute. This entity set sharder an one to many relationship with the entity set Account
+- This entity set represents the user's shopping cart where the primary key will be its order ID attribute. This entity set shares an one to many relationship with the entity set Account
 
 ### Item
 - This entity holds the relevant information for each item which includes the name, price, category id, and item id. The primary key for each entity is the item ID. The entity set shares a one-to-one relationship with the item stock levels entity set.
