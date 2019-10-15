@@ -24,6 +24,8 @@
 ### Item Stock Levels
 - This entity set has a one to one relationship with the entity set items. This is because as an item can only have one stock level. The entities in the set are identified by the primary key stockID, and are paired to items by the Item's ID.
 
+<br/>
+
 ### Item Categories
 - This is an entity set that will hold the various categories for Items. The primary key Category ID identifies entities in this set, Category Name is also another attribute. An example of Category name can be "Chips" or "Soda".
 
@@ -66,6 +68,12 @@
 ### Orders(<u>orderID</u>, itemID, memberID, price)
 <img src="../project_diagram/Tables/Orders.png" />
 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
 ### Item(<u>itemID</u>, name, price, category)
 <img src="../project_diagram/Tables/Item.png" />
 
@@ -76,6 +84,17 @@
 <img src="../project_diagram/Tables/StockLevels.png" />
 
 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <br/>
 <br/>
 
@@ -89,6 +108,17 @@
 ### Contain(<u>orderID</u>, <u>itemID</u>)
 <img src="../project_diagram/Tables/contain.png" />
 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
 ### Has(<u>itemID</u>, <u>stockID</u>)
 <img src="../project_diagram/Tables/has.png" />
 
@@ -97,16 +127,6 @@
 
 
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 <br/>
 <br/>
 <br/>
