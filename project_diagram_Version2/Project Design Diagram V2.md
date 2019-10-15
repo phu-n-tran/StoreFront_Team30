@@ -23,6 +23,14 @@
 - This entity set has a one to one relationship with the entity set items. This is because as an item can only have one stock level. The entities in the set are identified by the primary key stockID, and are paired to items by the Item's ID.
 
 <br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
 ### Item Categories
 - This is an entity set that will hold the various categories for Items. The primary key Category ID identifies entities in this set, Category Name is also another attribute. An example of Category name can be "Chips" or "Soda".
@@ -37,11 +45,13 @@
 
 ### Has
 - This relationship has a one-to-one relation between the entity sets Item and Item Stock Levels. It is one-to-one because each item will only have a single stock level to maintain the quantity of each item in the warehouse.
-### contain
+
+### Contain
 - This relationship has a one-to-many relation between the entity sets Orders and Item. It is one-to-many because each order can hold many different items. The reason for this is because a person is not restricted to buying only a single item.
 
 ### Belongs
 - This is a relationship between Item and Item Categories. The relationship is many to many, as Items can have multiple categories and categories have multiple items.
+<br/>
 <br/>
 <br/>
 <br/>
@@ -69,17 +79,22 @@
 <br/>
 <br/>
 <br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
 ### Item(<u>itemID</u>, name, price, category)
 <img src="../project_diagram/Tables/Item.png" />
 
-### Categories(<u>categoryID</u>, categoryName)
+### Item Categories(<u>categoryID</u>, categoryName)
 <img src="../project_diagram/Tables/Categories.png" />
 
 ### StockLevels(<u>stockID</u>, itemID, stockDate, quantity)
 <img src="../project_diagram/Tables/StockLevels.png" />
 
 
+<br/>
 <br/>
 <br/>
 <br/>
@@ -101,36 +116,28 @@
 ### Make(<u>accountID</u>, <u>orderID</u>)
 <img src="../project_diagram/Tables/make.png" />
 
-### Contain(<u>orderID</u>, <u>itemID</u>)
-<img src="../project_diagram/Tables/contain.png" />
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
 ### Has(<u>itemID</u>, <u>stockID</u>)
 <img src="../project_diagram/Tables/has.png" />
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+### Contain(<u>orderID</u>, <u>itemID</u>)
+<img src="../project_diagram/Tables/contain.png" />
 
 ### Belongs(<u>itemID</u>, <u>categoryID</u>)
 <img src="../project_diagram/Tables/belongs.png" />
 
 
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 <br/>
 <br/>
 <br/>
