@@ -47,71 +47,53 @@
 <br/>
 <br/>
 <br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
 # Schemas and Tuples
 ## Entity Sets -> Relations
-### Customer(<u>memberID</u>, name, cellPhone, address)
-- (1234, "Peter Pan", "123-456-1220", "145 Story Rd")
-- 
-
 ### Account(<u>accountID</u>, memberID, email, password)
-- ("A1234", 1234, "peterpan@gmail.com", mypassword)
-- 
+<img src="../project_diagram/Tables/Accounts.png" />
 
 ### CardInfo(<u>cardID</u>, cardHolder, cardNumber, CVV, zipcode)
-- (1, "Peter Pan", 1234567890987654, 879, 95111)
-- 
+<img src="../project_diagram/Tables/CardInfo.png" />
 
 ### Orders(<u>orderID</u>, itemID, memberID, price)
-- (420, 731, 1234, 25.00)
-- (???, 111, 1234, ??.??)
-- 
+<img src="../project_diagram/Tables/Orders.png" />
 
 ### Item(<u>itemID</u>, name, price, category)
-- (731, "black t-shirt", 15.00, "clothing")
-- (111, "Hershey Chocolate", 10.00, "candy")
-- 
+<img src="../project_diagram/Tables/Item.png" />
 
-### ItemCategories(<u>categoryID</u>, categoryName)
-- (222, "clothing")
-- (333, "candy")
-- 
+### Categories(<u>categoryID</u>, categoryName)
+<img src="../project_diagram/Tables/Categories.png" />
 
-### ItemStockLevels(<u>stockID</u>, itemID, stockDate, quantity)
-- (999, 731, 2019-02-14, 100)
-- (879, 111, 2019-04-25, 57)
-- 
+### StockLevels(<u>stockID</u>, itemID, stockDate, quantity)
+<img src="../project_diagram/Tables/StockLevels.png" />
 
 
 <br/>
 <br/>
 
 ## Relationships -> Relations
-### Owns(<u>memberID</u>, <u>accountID</u>)
-- (1234, "A1234")
-- 
-
 ### Holds(<u>accountID</u>, <u>cardID</u>)
-- ("A1234", 1)
-- 
+<img src="../project_diagram/Tables/holds.png" />
 
 ### Make(<u>accountID</u>, <u>orderID</u>)
-- ("A1234", 420)
+<img src="../project_diagram/Tables/make.png" />
 
 ### Contain(<u>orderID</u>, <u>itemID</u>)
-- (420, 731)
-- (420 111)
-- 
+<img src="../project_diagram/Tables/contain.png" />
 
 ### Has(<u>itemID</u>, <u>stockID</u>)
-- (731, 999)
-- (111, 879)
-- 
+<img src="../project_diagram/Tables/has.png" />
 
 ### Belongs(<u>itemID</u>, <u>categoryID</u>)
-- (731, 222)
-- (111, 333)
-- 
+<img src="../project_diagram/Tables/belongs.png" />
 
 
 
@@ -132,4 +114,42 @@
 <br/>
 <br/>
 <br/>
-<img src='ERD Proposal Diagram V2.png' style="transform:rotate(90deg)"/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<img src="ERD Proposal Diagram V2.png" style="transform:rotate(90deg)"/>
