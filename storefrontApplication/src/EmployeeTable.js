@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Row, Col, Input, Button } from "reactstrap";
 import Employees from "./Employees";
 
@@ -33,8 +33,9 @@ class EmployeeTable extends Component {
     fetch(`http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables/add?name=
     
     ${this.state.newPerson.name}&age=${this.state.newPerson.age}`)
-    .then(this.getData())
-    .catch(err => console.error(err));
+      .then(this.getData())
+      // eslint-disable-next-line no-console
+      .catch(err => console.error(err));
     let temp = {
       name: "",
       age: "",
@@ -64,25 +65,27 @@ class EmployeeTable extends Component {
           Add User
         </Button>
       </Row>
-    </React.Fragment>
+    </React.Fragment>;
   }
 
   removeEntry = (id) => {
     fetch(`http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables/remove?id=${id}`)
       .then(this.getData())
+      // eslint-disable-next-line no-console
       .catch(err => console.error(err));
     
   }
 
   getData = () => {
-    fetch('http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables')
+    fetch("http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables")
       .then(response => response.json())
       .then(response => this.setState({ people: response.data }))
+      // eslint-disable-next-line no-console
       .catch(err => console.error(err));
   }
 
   renderEmployees = () => {
-    return <Employees people={this.state.people} removeEntry={this.removeEntry} />
+    return <Employees people={this.state.people} removeEntry={this.removeEntry} />;
   }
 
   renderData = ({ id, name, age, dob }) => <div style={{ textAlign: "left" }} key={id}>{id}, {name}, {age}</div>
