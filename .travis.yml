@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+ - "11"
+install:
+ - cd storefrontApplication/
+ - npm install
+script:
+ - npm run build
+ - npm run lint

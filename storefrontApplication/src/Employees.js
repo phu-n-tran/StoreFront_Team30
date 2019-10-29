@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Row, Col, Button } from "reactstrap";
-import './App.css';
+import "./App.css";
 
 class Employees extends Component {
   constructor(props) {
@@ -19,22 +19,22 @@ class Employees extends Component {
           return (
             <Row className="Employee-entry">
               <Col>
-                <Button color="warning" onClick={() => {this.props.removeEntry(person.id)}}>
+                <Button color="warning" onClick={() => {this.props.removeEntry(person.id);}}>
                   x
                 </Button>
               </Col>
-            <Col>
-              {person.id}
-            </Col>
-            <Col>
-              {person.name}
-            </Col>
-            <Col>
-              {person.age}
-            </Col>
-          </Row>);
-      })
-      )
+              <Col>
+                {person.id}
+              </Col>
+              <Col>
+                {person.name}
+              </Col>
+              <Col>
+                {person.age}
+              </Col>
+            </Row>);
+        })
+      );
     }
   }
 
