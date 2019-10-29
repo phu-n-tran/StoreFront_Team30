@@ -24,8 +24,10 @@ app.get('/tempTables', (req,res) =>{
         con.query('select * from Temp', (err, results) => {
             if(err) res.send(err);
             else {
-                return res.json({
-                    data: results
+                return res.json(
+                    {
+                    ...results,
+                    data: true
                 });
             }
         });

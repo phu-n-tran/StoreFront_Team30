@@ -1,17 +1,21 @@
-import React, { Component } from "react";
-import { Container } from "reactstrap";
-import EmployeeTable from "./EmployeeTable";
+import React, { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import Routing from "./Routing";
+import Navbar from "./Navbar";
 import "./App.css";
 
-class App extends Component{
+function App() {
 
-  render() {
-    return (
-      <Container style={{textAlign:"left"}} className="App">
-        <EmployeeTable />
-      </Container>
-    );
-  }
+  const [authenticated, setAuthenticated] = useState(false);
+
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Navbar authed={authenticated} />
+        <Routing appProps={{ authenticated, setAuthenticated }} />
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
