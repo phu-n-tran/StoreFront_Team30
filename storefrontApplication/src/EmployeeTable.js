@@ -77,7 +77,7 @@ class EmployeeTable extends Component {
   }
 
   getData = () => {
-    fetch('http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables')
+    fetch("http://ec2-54-183-188-69.us-west-1.compute.amazonaws.com:4000/tempTables")
       .then(response => response.json())
       .then(response => this.setState({ people: response.data }))
       // eslint-disable-next-line no-console

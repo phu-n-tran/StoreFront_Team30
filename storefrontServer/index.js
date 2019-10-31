@@ -19,6 +19,19 @@ app.get('/',(req,res) =>{
 
 });
 
+// /users/login?email={email}&password={password}
+app.get('/users/login', (req,res) =>{
+    const { email, password } = req.query;
+    pool.getConnection(function(err, con) {
+        con.query(`select accountID from Account where email='${email}' and password='${password}'`, (err, results) => {
+            if (err) res.send(err);
+            else res.send(results);
+        });
+
+        con.release();
+    });
+});
+
 app.get('/users', (req,res) =>{
     const { id } = req.query;
     pool.getConnection(function(err, con){
@@ -151,9 +164,9 @@ app.get('/cards/remove', (req,res) => {
                             con.query(`delete from holds where accountID = ${id} and cardID = ${cardID}`, (err, results) => {
                                 if(err) res.send(err);
                                 else res.send(`Successfully deleted card of id ${cardID}`);
-                            })
+                            });
                         }
-                    })
+                    });
                 } else{
                     res.send(`Card of ID ${cardID} not found`)
                 }
@@ -164,22 +177,36 @@ app.get('/cards/remove', (req,res) => {
 });
 
 app.get('/item', (req,res) => {
-    const { itemID } = req.query;
+    const { itemID, categoryID } = req.query;
     pool.getConnection(function(err, con){
-        if(!itemID) {
+        if(!itemID && !categoryID) {
             con.query(`select * from Item`, (err, results) => {
                 if(err) res.send(err);
                 else{
                     res.send(results)
                 }
-            })
-        } else{
+            });
+        } else if(!categoryID) {
             con.query(`select * from Item where itemID = ${itemID}`, (err,results) => {
                 if(err) res.send(err);
                 else{
                     res.send(results);
                 }
-            })
+            });
+        } else if(!itemID) {
+            con.query(`
+            select * from belongs inner join Item using (itemID) inner join Categories using (categoryID) where categoryID = ${categoryID}
+            `, (err, results) => {
+                if(err) res.send(err);
+                else res.send(results);
+            });
+        } else {
+            con.query(`
+            select * from belongs inner join Item using (itemID) inner join Categories using (categoryID) where categoryID = ${categoryID} and itemID = ${itemID}
+            `, (err, results) => {
+                if(err) res.send(err);
+                else res.send(results);
+            });
         }
 
         con.release();
@@ -187,7 +214,7 @@ app.get('/item', (req,res) => {
 });
 
 app.get('/item/add', (req, res) => {
-    const { name, price, description, image } = req.query;
+    const { name, price, description, image, categoryID } = req.query;
     pool.getConnection(function(err, con) {
         con.query(`
         insert into Item(name, price, description, image)
@@ -198,58 +225,148 @@ app.get('/item/add', (req, res) => {
             ${image}
         )`, (err, results) => {
             if(err) res.send(err);
-            else res.send(results);
+            else {
+                con.query(`select itemID from Item where name = ${name} and price = ${price} and description = ${description}`, (err, results) => {
+                    if(err) res.send(err);
+                    else{
+                        con.query(`insert into belongs(itemID, categoryID) values(${results[0].itemID}, ${categoryID})`, (err, results) => {
+                            if(err) res.send(err);
+                            else res.send(`Successfully added ${name} into the database`);
+                        });
+                    }
+                });
+            }
         });
-        con.release;
+        con.release();
     });
 });
 
 app.get('/item/remove', (req, res) => {
     const { itemID } = req.query;
     pool.getConnection(function(err, con) {
-        con.query(`delete `)
-    })
-})
-// app.get('/tempTables', (req,res) =>{
-//     pool.getConnection(function(err, con){
-//         con.query('select * from Temp', (err, results) => {
-//             if(err) res.send(err);
-//             else {
-//                 return res.json({
-//                     data: results
-//                 });
-//             }
-//         });
+        con.query(`delete from Item where itemID = ${itemID}`,(err, results) => {
+            if(err) res.send(err);
+            else{
+                con.query(`delete from belongs where itemID = ${itemID}`, (err, results) => {
+                    if(err) res.send(err);
+                    else res.send(`Successfully deleted item ${itemID} from database`);
 
-//         con.release();
-//     });
-// });
+                });
+            }
+        });
+        con.release();
+    });
+});
 
-// app.get('/tempTables/add', (req,res) =>{
-//     const { name, age } = req.query;
-//     dobY = 2019 - age;
-//     dobQ = dobY + "-1-1";
-//     pool.getConnection(function(err, con){
-//         con.query(`insert into Temp (name, age, dob) values('${name.trim()}', ${age}, '${dobQ}')`, (err, results) => {
-//             if(err) res.send(err);
-//             else res.send(`Successfully added ${name} of age ${age} into the table`);
-//         });
+app.get('/orders', (req, res) => {
+    const { id, orderID } = req.query;
+    pool.getConnection(function(err, con) {
+        if(!orderID){
+            con.query(`
+            select orderID, price from make inner join Orders using (orderID) inner join Account using (accountID) where accountID = ${id}
+            `, (err, results) => {
+                if(err) res.send(err);
+                else res.send(results);
+            });
+        } else {
+            con.query(`
+            select orderID, price from make inner join Orders using (orderID) inner join Account using (accountID) where accountID = ${id} and orderID = ${orderID}
+            `, (err, results) => {
+                if(err) res.send(err);
+                else res.send(results);
+            });
+        }
 
-//         con.release();
-//     });
-// });
+        con.release();
+    });
+});
 
-// app.get('/tempTables/remove', (req,res) =>{
-//     const { id } = req.query;
-//     pool.getConnection(function(err, con){
-//         con.query(`delete from Temp where id = ${id}`, (err, results) => {
-//             if(err) res.send(err);
-//             else res.send(`Successfully deleted entry ${id} from the table`);
-//         });
+// /orders/add?items=[[itemid, quantity], [itemid, quantity]]&accountID=`accountID`
+app.get(`/orders/add`, (req, res) => {
+    var accountID = req.query.accountID;
+    var items = JSON.parse(req.query.items);
+    var price = 0;
+    var lastInsert;
 
-//         con.release();
-//     });
-// });
+    // console.log(items.length);
+    pool.getConnection(function(err, con) {
+        con.query(`insert into Orders(price) values('0')`, (err, results) =>{
+            if(err) res.send(err);
+            else {
+                lastInsert = results.insertId;
+                for(i = 0; i < items.length; i++){
+                    con.query(`insert into contain(orderID, itemID, quantity) values('${lastInsert}','${items[i][0]}','${items[i][1]}')`, (err, results) =>{
+                        if(err) res.send(err);
+                        else{
+                            con.query(`select price from Item where itemID='${items[i][0]}'`, (err, results) =>{
+                                if(err) res.send(err);
+                                else prices += results[0].price;
+                            });
+                        }
+                    });
+                }
+        
+                con.query(`update Orders set price='${price}' where orderID='${lastInsert}'`, (err, results) =>{
+                    if(err) res.send(err);
+                });
+        
+                con.query(`insert into make(accountID, orderID) values('${accountID}', '${lastInsert}')`, (err, results) =>{
+                    if(err) res.send(err);
+                    else res.send(`Successfully created order with id ${lastInsert} associated with account ${accountID}`);
+                });
+            }
+        });
+
+        con.release();
+    });
+});
+
+app.get('/stock', (req,res) =>{
+    const { stockID } = req.query;
+
+    pool.getConnection(function (err,con) {
+        con.query(`select * from StockLevels where stockID='${stockID}'`, (err,results) =>{
+            if(err) res.send(err);
+            else res.send(results);
+        });
+
+        con.release()
+    });
+});
+
+app.get('/stock/add', (req,res) =>{
+    const { itemID, quantity, date } = req.query;
+    var lastInsert;
+
+    pool.getConnection(function (err,con) {
+        con.query(`insert into StockLevels(date, quantity) values('${date}', '${quantity}')`, (err,results) =>{
+            if(err) res.send(err);
+            else {
+                lastInsert = results.insertId;
+
+                con.query(`insert into has(stockID, itemID) values('${lastInsert}','${itemID}')`, (err, results) =>{
+                    if(err) res.send(err);
+                });
+        
+                con.query(`select quantity from Item where itemID='${itemID}'`, (err, results) =>{
+                    if(err) res.send(err);
+                    else{
+                        var newQuantity = parseInt(quantity) + parseInt(results[0].quantity);
+                        con.query(`update Item set quantity='${newQuantity}' where itemID='${itemID}'`, (err, results) => {
+                            if(err) res.send(err);
+                            else res.send({
+                                itemID: itemID,
+                                newQuantity: newQuantity
+                            });
+                        });
+                    }
+                });
+            }
+        });
+        
+        con.release();
+    });
+});
 
 app.listen(4000, () => {
     console.log('Backend server listening on port 4000');
