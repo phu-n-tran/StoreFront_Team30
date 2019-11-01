@@ -51,16 +51,23 @@ app.get('/users', (req,res) =>{
 app.get('/users/add', (req,res) => {
     const { email, password, name, cell, address } = req.query;
     pool.getConnection(function (err, con){
-        con.query(`insert into Account (email, password, name, cell, address) values(
-            '${email.trim()}',
-            '${password}',
-            '${name}',
-            '${cell}',
-            '${address}'
-            )`, (err,results) =>{
-                if (err) res.send(err);
-                else res.send(`Account successfully created with email ${email}`);
-            });
+        con.query(`select accountID from Account where email='${email}'`, (err, results) => {
+            if(err) res.send(err);
+            else {
+                if(results.length == 0){
+                    con.query(`insert into Account (email, password, name, cell, address) values(
+                        '${email.trim()}',
+                        '${password}',
+                        '${name}',
+                        '${cell}',
+                        '${address}'
+                        )`, (err,results) =>{
+                            if (err) res.send(err);
+                            else res.send(results.insertId);
+                    });
+                } else res.send(`Email ${email} already exists`);
+            }
+        });
         con.release();
     });
 });
@@ -183,6 +190,7 @@ app.get('/item/categories', (req,res) => {
             if(err) res.send(err)
             else res.send(results);
         });
+        con.release();
     });
 });
 
