@@ -63,9 +63,13 @@ app.get('/users/add', (req,res) => {
                         '${address}'
                         )`, (err,results) =>{
                             if (err) res.send(err);
-                            else res.send(results.insertId);
+                            else res.send({
+                                accountID: results.insertId
+                            });
                     });
-                } else res.send(`Email ${email} already exists`);
+                } else res.send({
+                accountID: "Email already exists"
+                });
             }
         });
         con.release();
@@ -213,14 +217,14 @@ app.get('/item', (req,res) => {
             });
         } else if(!itemID) {
             con.query(`
-            select * from belongs inner join Item using (itemID) inner join Categories using (categoryID) where categoryID = ${categoryID}
+                select c.categoryID, c.categoryName, i.itemID, i.itemName, i.price, i.description, i.image, i.quantity from belongs inner join Item as i using (itemID) inner join Categories as c using (categoryID) where categoryID = ${categoryID};    
             `, (err, results) => {
                 if(err) res.send(err);
                 else res.send(results);
             });
         } else {
             con.query(`
-            select * from belongs inner join Item using (itemID) inner join Categories using (categoryID) where categoryID = ${categoryID} and itemID = ${itemID}
+                select c.categoryID, c.categoryName, i.itemID, i.itemName, i.price, i.description, i.image, i.quantity from belongs inner join Item as i using (itemID) inner join Categories as c using (categoryID) where categoryID = ${categoryID} and itemID = ${itemID}
             `, (err, results) => {
                 if(err) res.send(err);
                 else res.send(results);
@@ -235,7 +239,7 @@ app.get('/item/add', (req, res) => {
     const { name, price, description, image, categoryID } = req.query;
     pool.getConnection(function(err, con) {
         con.query(`
-        insert into Item(name, price, description, image)
+        insert into Item(itemName, price, description, image)
         values(
             ${name},
             ${price},
@@ -244,7 +248,7 @@ app.get('/item/add', (req, res) => {
         )`, (err, results) => {
             if(err) res.send(err);
             else {
-                con.query(`select itemID from Item where name = ${name} and price = ${price} and description = ${description}`, (err, results) => {
+                con.query(`select itemID from Item where itemName = ${name} and price = ${price} and description = ${description}`, (err, results) => {
                     if(err) res.send(err);
                     else{
                         con.query(`insert into belongs(itemID, categoryID) values(${results[0].itemID}, ${categoryID})`, (err, results) => {
