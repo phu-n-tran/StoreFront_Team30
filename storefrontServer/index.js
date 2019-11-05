@@ -188,7 +188,7 @@ app.get('/cards/remove', (req,res) => {
 });
 
 app.get('/item/categories', (req,res) => {
-    const { categoryID } = req.query;
+    // const { categoryID } = req.query;
     pool.getConnection(function(err, con) {
         con.query(`select * from Categories`, (err, results) =>{
             if(err) res.send(err)

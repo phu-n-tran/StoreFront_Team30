@@ -4,6 +4,8 @@ import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import HomePage from "./HomePage";
 import EmployeeTable from "./EmployeeTable";
+import Item from "./Item";
+import Categories from "./Categories";
 import { PrivateRoute } from "./PrivateRoute";
 
 function Routing({ appProps }) {
@@ -19,6 +21,12 @@ function Routing({ appProps }) {
         <PrivateRoute exact path="/"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={EmployeeTable} />
+        <PrivateRoute exact path="/item/:id"
+          appProps={{ allowed: appProps.authenticated, ...appProps }}
+          component={Item} />
+        <PrivateRoute exact path="/categories"
+          appProps={{ allowed: appProps.authenticated, ...appProps }}
+          component={Categories} />
         {signedOutRoutes.map((x, index) => {
           return (
             <Route key={index} exact path={x.path}

@@ -159,7 +159,7 @@ export async function getOrders(accountID, orderID) {
 
 export async function addOrders(data, accountID) {
   let dataString = JSON.stringify(data);
-  let fetchString = "http://${url}/orders/add?items=" +
+  let fetchString = `http://${url}/orders/add?items=` +
     dataString + "&accountID=" + accountID;
 
   fetch(fetchString)

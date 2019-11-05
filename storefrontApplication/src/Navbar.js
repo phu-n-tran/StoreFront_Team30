@@ -18,8 +18,7 @@ function Navigation(props) {
   const [isOpen, toggleOpen] = useState(false);
   const [dropdownOpen, toggleDropdownOpen] = useState(false);
   const navLinks = [
-    { name: "Upload File", link: "upload" },
-    { name: "View Files", link: "/" },
+    { name: "View Categories", link: "/categories" }
   ];
 
   function getDropDown() {
