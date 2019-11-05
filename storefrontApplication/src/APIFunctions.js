@@ -9,7 +9,7 @@ export async function registerUser(newUser) {
     `&address='${newUser.address}'`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -22,7 +22,7 @@ export async function getUser(user) {
   await fetch(`http://${url}/users?id=${user.accountID}`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -36,7 +36,7 @@ export async function loginUser(user) {
     `&password=${user.password}`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -56,7 +56,7 @@ export async function getCards(user) {
   await fetch(`http://${url}/cards?id=${user.accountID}`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -82,13 +82,13 @@ export async function deleteCard(data) {
 
 export async function getCategory(categoryID) {
   let objects = [];
-  const query = categoryID ? `http://${url}/item/categories` :
+  const query = !categoryID ? `http://${url}/item/categories` :
     `http://${url}/item?categoryID=${categoryID}`;
 
   await fetch(`${query}`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -98,12 +98,12 @@ export async function getCategory(categoryID) {
 
 export async function getItems(itemID) {
   let objects = [];
-  const query = itemID ? `https://${url}/item` :
+  const query = !itemID ? `http://${url}/item` :
     `http://${url}/item?itemID=${itemID}`;
   await fetch(`${query}`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -116,7 +116,7 @@ export async function getItemInCategory(itemID, categoryID) {
   await fetch(`http://${url}/item?itemID=${itemID}&categoryID=${categoryID}`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -142,14 +142,14 @@ export async function removeItem(itemID) {
 
 export async function getOrders(accountID, orderID) {
   let objects = [];
-  const query = orderID ?
+  const query = !orderID ?
     `http://${url}/orders?id=${accountID}` :
     `http://${url}/orders?id=${accountID}&orderID=${orderID}`;
 
   await fetch(`${query}`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -158,8 +158,8 @@ export async function getOrders(accountID, orderID) {
 }
 
 export async function addOrders(data, accountID) {
-  dataString = JSON.stringify(data);
-  fetchString = "http://${url}/orders/add?items=" +
+  let dataString = JSON.stringify(data);
+  let fetchString = "http://${url}/orders/add?items=" +
     dataString + "&accountID=" + accountID;
 
   fetch(fetchString)
@@ -173,7 +173,7 @@ export async function getStock(stockID) {
   await fetch(`http://${url}/stock?stockID=${stockID}`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
@@ -187,7 +187,7 @@ export async function addStock(data) {
     `&quantity=${data.quantity}&date='${data.date}'`)
     .then((response) => response.json())
     .then((response) => {
-      objects = response.data;
+      objects = response;
     })
     .catch((err) => {
       console.error(err);
