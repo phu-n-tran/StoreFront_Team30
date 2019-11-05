@@ -1,12 +1,16 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
+import HomePage from "./HomePage";
 import EmployeeTable from "./EmployeeTable";
 import { PrivateRoute } from "./PrivateRoute";
 
 function Routing({ appProps }) {
   const signedOutRoutes = [
     { path: "/login", C: LoginPage },
+    { path: "/register", C: RegisterPage },
+    { path: "/home", C: HomePage },
   ];
 
   return (
