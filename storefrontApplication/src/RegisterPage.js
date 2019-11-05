@@ -59,9 +59,9 @@ class RegisterPage extends Component {
     // if everything is correct on the form
     if (formValid(this.state)) {
 
-      fetch("http://localhost:4000/users/add?email=" + this.state.email + "&password="
-        + this.state.password + "&cell=" + this.state.phoneNumber + "&address="
-        + this.state.address + "&name=" + this.state.fullName)
+      fetch("http://localhost:4000/users/add?email=" + this.state.email +
+        "&password=" + this.state.password + "&cell=" + this.state.phoneNumber
+        + "&address=" + this.state.address + "&name=" + this.state.fullName)
         .then(response => response.json())
         .then(response => {
           let result = response.accountID;
@@ -102,17 +102,20 @@ class RegisterPage extends Component {
         value.length < 3 ? "minimum 3 characaters required" : "";
       break;
     case "phoneNumber":
-      formErrors.phoneNumber = phoneNumberRegex.test(value) ? "" : "invalid phone format";
+      formErrors.phoneNumber = phoneNumberRegex.test(value) ? "" :
+        "invalid phone format";
       break;
     case "address":
       formErrors.address = addressRegex.test(value) ? "" : "invalid address";
       break;
     case "email":
-      formErrors.email = emailRegex.test(value) ? "" : "invalid email address";
+      formErrors.email = emailRegex.test(value) ? "" :
+        "invalid email address";
       break;
     case "password":
       formErrors.password = passwordRegex.test(value) ? ""
-        : "minimum 8 characaters required and it must contain an uppercase letter and a number";
+        : "minimum 8 characaters required and it must contain an " +
+        "uppercase letter and a number";
       break;
     default:
       break;

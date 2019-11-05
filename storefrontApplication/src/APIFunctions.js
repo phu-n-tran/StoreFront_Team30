@@ -5,8 +5,8 @@ const url = "localhost:4000";
 export async function registerUser(newUser) {
   let objects = [];
   await fetch(`http://${url}/users/add?email=${newUser.email}` +
-    `&password=${newUser.password}&name='${newUser.name}'&cell=${newUser.cell}` +
-    `&address='${newUser.address}'`)
+    `&password=${newUser.password}&name='${newUser.name}'&` +
+    `cell=${newUser.cell}&address='${newUser.address}'`)
     .then((response) => response.json())
     .then((response) => {
       objects = response;

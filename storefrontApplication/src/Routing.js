@@ -3,7 +3,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import HomePage from "./HomePage";
-import EmployeeTable from "./EmployeeTable";
 import Item from "./Item";
 import Categories from "./Categories";
 import { PrivateRoute } from "./PrivateRoute";
@@ -20,7 +19,7 @@ function Routing({ appProps }) {
       <Switch>
         <PrivateRoute exact path="/"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={EmployeeTable} />
+          component={HomePage} />
         <PrivateRoute exact path="/item/:id"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={Item} />

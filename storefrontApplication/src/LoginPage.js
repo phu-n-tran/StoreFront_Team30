@@ -51,24 +51,26 @@ class LoginPage extends Component {
     // if everything is correct on the form
     if (formValid(this.state)) {
 
-      fetch("http://localhost:4000/users/login?email=" + this.state.email + "&password=" + this.state.password)
+      fetch("http://localhost:4000/users/login?email=" + this.state.email +
+        "&password=" + this.state.password)
         .then(response => response.json())
         .then(response => {
           //console.log(response);
           //if fetching and got back valid result
           if (response.length > 0) {
-            this.setState({ accountID: response[0].accountID, invalid: false }, () => {
-              //   console.log(`
-              //   --SUBMITTING--
-              //   Email: ${this.state.email}
-              //   Password: ****
-              //   acc: ${this.state.accountID}
-              //   Invalid: ${this.state.invalid}
-              // `);
-              // if valid login, go to next page
-              if (!this.state.invalid)
-                this.props.history.push("home");
-            });
+            this.setState({ accountID: response[0].accountID, invalid: false },
+              () => {
+                //   console.log(`
+                //   --SUBMITTING--
+                //   Email: ${this.state.email}
+                //   Password: ****
+                //   acc: ${this.state.accountID}
+                //   Invalid: ${this.state.invalid}
+                // `);
+                // if valid login, go to next page
+                if (!this.state.invalid)
+                  this.props.history.push("home");
+              });
           }
           else // if fetching and get back nothing
             this.setState({ invalid: true }, () => {
@@ -98,7 +100,8 @@ class LoginPage extends Component {
       break;
     case "password":
       formErrors.password = passwordRegex.test(value) ? ""
-        : "minimum 8 characaters required and it must contain an uppercase letter and a number";
+        : "minimum 8 characaters required and it must contain an uppercase" +
+        "letter and a number";
       break;
     default:
       break;
@@ -146,7 +149,9 @@ class LoginPage extends Component {
             </div>
             <div className="createAccount">
               <button type="submit">Login Account</button>
-              <Link to="register"><small>Don't Have An Account Yet?</small></Link>
+              <Link to="register">
+                <small>Don't Have An Account Yet?</small>
+              </Link>
             </div>
             <div className="warningMessage">
               <p>{this.state.invalid ? "Invalid Username/Password!!" : ""}</p>
