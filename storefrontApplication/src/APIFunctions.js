@@ -194,3 +194,57 @@ export async function addStock(data) {
     });
   return objects;
 }
+
+export async function getCartItemsByID(cartItems) {
+  let result = [];
+  await Promise.all(cartItems.map(async (item) => {
+    let currItem = await getItems(item.itemID);
+    const { itemID, description, image, itemName, price } = currItem[0];
+    result.push({
+      itemID, quantity: parseInt(item.quantity),
+      description, image, itemName, price
+    });
+  }));
+  return result;
+}
+
+export async function getCartItems(accountID) {
+  let objects = [];
+  await fetch(`http://${url}/cart?accountID=${accountID}`)
+    .then((response) => response.json())
+    .then((response) => {
+      objects = response;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return objects;
+}
+
+export async function addToCart(accountID, itemID, quantity) {
+  let objects = [];
+  await fetch(`http://${url}/cart/add?accountID=${accountID}` +
+    `&itemID=${itemID}&quantity=${quantity}`)
+    .then((response) => response.json())
+    .then((response) => {
+      objects = response;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return objects;
+}
+
+export async function removeFromCart(accountID, itemID, quantity) {
+  let objects = [];
+  await fetch(`http://${url}/cart/remove?accountID=${accountID}` +
+    `&itemID=${itemID}&quantity=${quantity}`)
+    .then((response) => response.json())
+    .then((response) => {
+      objects = response;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return objects;
+}

@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import HomePage from "./HomePage";
+import CartPage from "./CartPage";
 import Item from "./Item";
 import Categories from "./Categories";
 import { PrivateRoute } from "./PrivateRoute";
@@ -20,6 +21,9 @@ function Routing({ appProps }) {
         <PrivateRoute exact path="/"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={HomePage} />
+        <PrivateRoute exact path="/cart"
+          appProps={{ allowed: appProps.authenticated, ...appProps }}
+          component={CartPage} />
         <PrivateRoute exact path="/item/:id"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={Item} />

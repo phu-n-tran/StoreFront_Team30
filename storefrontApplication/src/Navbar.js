@@ -20,6 +20,10 @@ function Navigation(props) {
   const navLinks = [
     { name: "View Categories", link: "/categories" }
   ];
+  const accountLinks = [
+    { name: "Cart", link: "/cart", callback: () => {} },
+    { name: "Log out", link: "/login", callback: props.handleLogout }
+  ];
 
   function getDropDown() {
     if (props.authed) {
@@ -30,16 +34,20 @@ function Navigation(props) {
           toggle={() => toggleDropdownOpen(!dropdownOpen)}
         >
           <DropdownToggle navbar="true" caret>
-            Account Options
+            Account
           </DropdownToggle>
           <DropdownMenu dark="true">
-            <DropdownItem>
-              <NavLink
-                onClick={props.handleLogout}
-                href="/login">
-                Log out
-              </NavLink>
-            </DropdownItem>
+            {accountLinks.map((link, index) => {
+              return (
+                <DropdownItem key={index}>
+                  <NavLink
+                    onClick={link.callback}
+                    href={link.link}>
+                    {link.name}
+                  </NavLink>
+                </DropdownItem>
+              );
+            })}
           </DropdownMenu>
         </Dropdown>
       );

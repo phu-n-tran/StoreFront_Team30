@@ -187,6 +187,76 @@ app.get('/cards/remove', (req,res) => {
     });
 });
 
+
+app.get('/cart', (req, res) => {
+    const { accountID } = req.query;
+    pool.getConnection(function (err, con) {
+        con.query(`select * from Cart where accountID=${accountID}`, (err, results) => {
+            if (err) res.send(err);
+            else {
+                res.send(results);
+            }
+        });
+        con.release();
+    });
+});
+
+app.get('/cart/add', (req, res) => {
+    const { accountID, itemID, quantity } = req.query;
+    pool.getConnection(function (err, con) {
+        con.query(`select * from Cart where accountID=${accountID}
+        and itemID=${itemID}`, (err, results) => {
+            if (err) res.send(err);
+            else {
+                if (results.length === 1) {
+                    con.query(`update Cart set quantity =
+                    quantity + ${quantity} where accountID=${accountID}
+                    and itemID=${itemID}`, (err, results) => {
+                        if (err) res.send(err);
+                        else res.send(results);
+                    });
+                } else {
+                    con.query(`
+                                insert into 
+                                    Cart(accountID, itemID, quantity) 
+                                values(${accountID},${itemID},${quantity})`, (err, results) => {
+                        if (err) res.send(err);
+                        else res.send(`Successfully deleted card of id ${cardID}`);
+                    });
+                }
+            }
+        });
+        con.release();
+    });
+});
+
+app.get('/cart/remove', (req, res) => {
+    const { accountID, itemID, quantity } = req.query;
+    pool.getConnection(function (err, con) {
+        con.query(`select * from Cart where accountID=${accountID}
+        and itemID=${itemID} and quantity=${quantity}`, (err, results) => {
+            if (err) res.send(err);
+            else {
+                if (results.length === 1) {
+                    con.query(`delete from Cart where accountID=${accountID}
+                    and itemID=${itemID}`, (err, results) => {
+                        if (err) res.send(err);
+                        else res.send(results);
+                    });
+                } else {
+                    con.query(`update Cart set quantity =
+                    ${quantity} where accountID=${accountID}
+                    and itemID=${itemID}`, (err, results) => {
+                        if (err) res.send(err);
+                        else res.send(results);
+                    });
+                }
+            }
+        });
+        con.release();
+    });
+});
+
 app.get('/item/categories', (req,res) => {
     // const { categoryID } = req.query;
     pool.getConnection(function(err, con) {
