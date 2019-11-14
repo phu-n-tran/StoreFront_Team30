@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 var Config = require('./config');
 var mysql = require('mysql');
+var md5 = require('md5');
+const uuidv5 = require('uuid/v5');
+
+var uuidNameSpace = '85991d47-e742-45ea-83ff-b987d9f9c206';
 
 const app = express();
 
@@ -19,13 +23,41 @@ app.get('/',(req,res) =>{
 
 });
 
+app.get('/users/session', (req, res) =>{
+    const { id } = req.query;
+    pool.getConnection(function(err, con) {
+        con.query(`select accountID from Account where sessionID='${id}'`, (err, results) => {
+            if(err) res.send(err);
+            else res.send(results);
+        });
+        con.release();
+    });
+});
+
 // /users/login?email={email}&password={password}
 app.get('/users/login', (req,res) =>{
     const { email, password } = req.query;
     pool.getConnection(function(err, con) {
-        con.query(`select accountID from Account where email='${email}' and password='${password}'`, (err, results) => {
+        var hashedPassword = md5(password);
+        con.query(`select accountID from Account where email='${email}' and password='${hashedPassword}'`, (err, results) => {
             if (err) res.send(err);
-            else res.send(results);
+            else {
+                if(results.length > 0){
+                    var accountID = results[0].accountID;
+                    uuid = uuidv5(accountID+"", uuidNameSpace);
+                    con.query(`update Account set sessionID='${uuid}' where accountID=${accountID}`, (err, results) =>{
+                        if(err) res.send(err);
+                        else{
+                            res.send({
+                                accountID: accountID,
+                                sessionID: uuid
+                            });
+                        }
+                    });
+                } else{
+                    res.send(results);
+                }
+            }
         });
 
         con.release();
@@ -51,13 +83,14 @@ app.get('/users', (req,res) =>{
 app.get('/users/add', (req,res) => {
     const { email, password, name, cell, address } = req.query;
     pool.getConnection(function (err, con){
+        var hashedPassword = md5(password);
         con.query(`select accountID from Account where email='${email}'`, (err, results) => {
             if(err) res.send(err);
             else {
                 if(results.length == 0){
                     con.query(`insert into Account (email, password, name, cell, address) values(
                         '${email.trim()}',
-                        '${password}',
+                        '${hashedPassword}',
                         '${name}',
                         '${cell}',
                         '${address}'

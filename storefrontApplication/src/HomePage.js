@@ -1,7 +1,8 @@
 import React from "react";
 
 function HomePage() {
-  return (<div><p>HomePage</p></div>);
+
+  return (<div><p></p></div>);
 }
 
 

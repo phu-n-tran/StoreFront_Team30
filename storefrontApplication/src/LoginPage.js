@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { get } from "http";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!’*+/=?^_-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -8,6 +10,7 @@ const emailRegex = RegExp(
 //for special character
 //^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$
 const passwordRegex = RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/);
+
 
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
@@ -68,8 +71,10 @@ class LoginPage extends Component {
                 //   Invalid: ${this.state.invalid}
                 // `);
                 // if valid login, go to next page
-                if (!this.state.invalid)
+                if (!this.state.invalid){
+                  setCookie(sessionInfo, this.state.email, {path: "/"});
                   this.props.history.push("home");
+                }
               });
           }
           else // if fetching and get back nothing

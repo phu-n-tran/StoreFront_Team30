@@ -2,6 +2,20 @@
 
 const url = "localhost:4000";
 
+export async function checkSessionID(session) {
+  let objects = [];
+  await fetch(`http://${url}/users/session?id=${session}`)
+    .then((response) => response.json())
+    .then((response) => {
+      objects = response;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  return objects;
+}
+
 export async function registerUser(newUser) {
   let objects = [];
   await fetch(`http://${url}/users/add?email=${newUser.email}` +
