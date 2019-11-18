@@ -4,7 +4,7 @@ import LoginPage from "./Login";
 import RegisterPage from "./RegisterPage";
 import HomePage from "./HomePage";
 import CartPage from "./CartPage";
-import Item from "./Item";
+import ItemByCategory from "./ItemByCategory";
 import Categories from "./Categories";
 import { PrivateRoute } from "./PrivateRoute";
 
@@ -26,7 +26,7 @@ function Routing({ appProps }) {
           component={CartPage} />
         <PrivateRoute exact path="/item/:id"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={Item} />
+          component={ItemByCategory} />
         <PrivateRoute exact path="/categories"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={Categories} />

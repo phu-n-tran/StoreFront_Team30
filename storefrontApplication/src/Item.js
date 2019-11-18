@@ -1,44 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Row, Col, ListGroupItem } from "reactstrap";
-import { getCategory } from "./APIFunctions";
+import React from "react";
+import { ListGroupItem, Row, Col, Button } from "reactstrap";
+import { roundToTwo } from "./APIFunctions";
 
-function Item() {
-  const [items, setItems] = useState([]);
-  const { id } = useParams();
-
-  useEffect(() => {
-    getItems();
-    // eslint-disable-next-line
-  }, []);
-
-  async function getItems() {
-    setItems(await getCategory(id));
-  }
+function Item(props) {
+  const { itemName, price, description, itemID } = props.item;
 
   return (
-    <div style={{ textAlign: "left" }} className="Employees">
-      {items.length && items.map((item) => {
-        return (
-          <ListGroupItem key={item.itemID}>
-            <div style={{ display: "inline-block", width: "90%" }}>
-              <div style={{ float: "left" }}>
-                <Row>
-                  <h3>{item.itemName}</h3>
-                </Row>
-                <Row>
-                  <Col>
-                    <p>Price: ${item.price}</p>
-                  </Col>
-                  <Col>
-                  </Col>
-                </Row>
-              </div>
-            </div>
-          </ListGroupItem>
-        );
-      })}
-    </div>
+    <ListGroupItem key={itemID}>
+      <div style={{ display: "inline-block", width: "90%" }}>
+        <div style={{ float: "left" }}>
+          <Row>
+            <h3>{itemName}</h3>
+          </Row>
+          <Row>
+            <Col>
+              <p>Price: ${roundToTwo(price)}</p>
+              {props.children}
+            </Col>
+            <Col>
+              <p style={{ fontStyle: "italic" }}> Description: {description}</p>
+              {!props.cartPage ?
+                <Button onClick={() => props.handleAddToCart(props.item)}>
+                  Add to cart
+                </Button> :
+                <p>Quantity: {props.item.quantity}</p>}
+            </Col>
+          </Row>
+        </div>
+      </div>
+    </ListGroupItem>
   );
 }
 

@@ -3,14 +3,12 @@ import {
   getCartItems, getCartItemsByID,
   removeFromCart, addToCart
 } from "./APIFunctions";
-import { ListGroupItem, Row, Col, Button, ButtonGroup } from "reactstrap";
+import { Button } from "reactstrap";
+import QuantityButtons from "./QuantityButtons";
+import Item from "./Item";
 
 function CartPage(props) {
   const [cartItems, setCartItems] = useState([]);
-  const quantityButtons = [
-    { name: "+", callback: handleAdd },
-    { name: "-", callback: handleRemove }
-  ];
 
   useEffect(() => {
     renderCartItems();
@@ -24,7 +22,7 @@ function CartPage(props) {
 
   function getTotal() {
     let total = 0;
-    cartItems.forEach(function(item) {
+    cartItems.forEach(function (item) {
       total += item.quantity * item.price;
     });
     return total;
@@ -36,7 +34,7 @@ function CartPage(props) {
   }
 
   function handleRemove(item) {
-    removeFromCart(1, item.itemID, item.quantity - 1);
+    removeFromCart(1, item.itemID, 1);
   }
 
   return (
@@ -47,33 +45,13 @@ function CartPage(props) {
         like here to become one component */}
       {cartItems.map((item, index) => {
         return (
-          <ListGroupItem key={index}>
-            <div style={{ display: "inline-block", width: "90%" }}>
-              <div style={{ float: "left" }}>
-                <Row>
-                  <h3>{item.itemName}</h3>
-                </Row>
-                <Row>
-                  <Col>
-                    <p>Price: ${item.price}</p>
-                    <p>Quantity: {item.quantity}</p>
-                  </Col>
-                  <Col>
-                    <ButtonGroup>
-                      {quantityButtons.map((x, index) => {
-                        return (
-                          <Button key={index}
-                            onClick={() => { x.callback(item); }}>
-                            {x.name}
-                          </Button>
-                        );
-                      })}
-                    </ButtonGroup>
-                  </Col>
-                </Row>
-              </div>
-            </div>
-          </ListGroupItem>
+          <Item key={index} item={item}
+            children={
+              <QuantityButtons
+                item={item} handleAdd={handleAdd}
+                handleRemove={handleRemove} />
+            }
+            cartPage={true} />
         );
       })}
       <Button>

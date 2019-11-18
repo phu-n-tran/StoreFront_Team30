@@ -2,6 +2,11 @@
 
 const url = "localhost:4000";
 
+export function roundToTwo(num) {
+  let result = parseFloat(num);
+  return result.toFixed(2);
+}
+
 export async function checkSessionID(session) {
   let objects = [];
   await fetch(`http://${url}/users/session?id=${session}`)

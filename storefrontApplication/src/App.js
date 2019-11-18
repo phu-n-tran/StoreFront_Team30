@@ -21,6 +21,7 @@ function App() {
     var results = await checkSessionID(cookies.sessionID);
     if(results.length > 0){
       setAuthenticated(true);
+      setIsAuthenticating(false);
     } else{
       setAuthenticated(false);
     }

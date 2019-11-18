@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { getItems } from "./APIFunctions";
+import { useParams } from "react-router-dom";
 import Item from "./Item";
 import CartModal from "./CartModal";
+import { getCategory } from "./APIFunctions";
 
-function HomePage() {
-  const [items, setItems] = useState();
+function ItemByCategory() {
   const [currentItem, setCurrentItem] = useState();
   const [modalOpen, setModalOpen] = useState();
+  const [items, setItems] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-    getItemsFromRDS();
+    getItems();
+    // eslint-disable-next-line
   }, []);
-
-  async function getItemsFromRDS() {
-    setItems(await getItems());
-  }
 
   function showCartModal(item) {
     setCurrentItem(item);
@@ -25,21 +24,24 @@ function HomePage() {
     setModalOpen(!modalOpen);
   }
 
+  async function getItems() {
+    setItems(await getCategory(id));
+  }
+
   return (
-    <div>
-      <h1>Welcome! See items below.</h1>
+    <div style={{ textAlign: "left" }} className="Employees">
+
       {modalOpen ? <CartModal
         item={currentItem}
         modalOpen={modalOpen}
         toggle={toggle} /> : <React.Fragment />}
-      {items && items.map((x, index) => {
+      {items.length && items.map((item, index) => {
         return (
-          <Item handleAddToCart={showCartModal} key={index} item={x} />
+          <Item key={index} handleAddToCart={showCartModal} item={item} />
         );
       })}
     </div>
   );
 }
 
-
-export default HomePage;
+export default ItemByCategory;

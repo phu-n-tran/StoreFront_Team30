@@ -254,7 +254,7 @@ app.get('/cart/add', (req, res) => {
                                     Cart(accountID, itemID, quantity) 
                                 values(${accountID},${itemID},${quantity})`, (err, results) => {
                         if (err) res.send(err);
-                        else res.send(`Successfully deleted card of id ${cardID}`);
+                        else res.send(results);
                     });
                 }
             }
