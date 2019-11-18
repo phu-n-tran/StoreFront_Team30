@@ -3,7 +3,7 @@ import { ListGroupItem, Row, Col, Button } from "reactstrap";
 import { roundToTwo } from "./APIFunctions";
 
 function Item(props) {
-  const { itemName, price, description, itemID } = props.item;
+  const { itemName, price, description, itemID, image } = props.item;
 
   return (
     <ListGroupItem key={itemID}>
@@ -13,6 +13,12 @@ function Item(props) {
             <h3>{itemName}</h3>
           </Row>
           <Row>
+            <Col>
+              <img
+                src={require(`./storefrontImages/${image}`)}
+                alt={`${itemName}`}
+                style={{width: "30rem"}} />
+            </Col>
             <Col>
               <p>Price: ${roundToTwo(price)}</p>
               {props.children}
