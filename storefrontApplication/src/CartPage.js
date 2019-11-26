@@ -6,17 +6,20 @@ import {
 import { Button } from "reactstrap";
 import QuantityButtons from "./QuantityButtons";
 import Item from "./Item";
+import { useCookies } from "react-cookie";
 
 function CartPage(props) {
   const [cartItems, setCartItems] = useState([]);
+  const [cookies] = useCookies(["name"]);
+  const { accountID } = cookies;
 
   useEffect(() => {
     renderCartItems();
+    //eslint-disable-next-line
   }, []);
 
   async function renderCartItems() {
-    // put user ID here
-    let items = await getCartItems(1);
+    let items = await getCartItems(accountID);
     setCartItems(await getCartItemsByID(items));
   }
 
@@ -29,12 +32,12 @@ function CartPage(props) {
   }
 
   function handleAdd(item) {
-    addToCart(1, item.itemID, 1);
+    addToCart(accountID, item.itemID, 1);
     cartItems.find((x) => x.itemID === item.itemID).quantity += 1;
   }
 
   function handleRemove(item) {
-    removeFromCart(1, item.itemID, 1);
+    removeFromCart(accountID, item.itemID, 1);
   }
 
   return (

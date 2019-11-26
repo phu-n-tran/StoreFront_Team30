@@ -5,15 +5,18 @@ import {
 } from "reactstrap";
 import QuantityButtons from "./QuantityButtons";
 import { addToCart } from "./APIFunctions";
+import { useCookies } from "react-cookie";
 
 function CartModal(props) {
   const [count, setCount] = useState(1);
+  const [cookies] = useCookies(["name"]);
+  const { accountID } = cookies;
 
   const { price, itemName, quantity, itemID } = props.item;
 
   function addItemToCart() {
     if(quantity !== 0) {
-      addToCart(1, itemID, count);
+      addToCart(accountID, itemID, count);
     }
     props.toggle();
   }

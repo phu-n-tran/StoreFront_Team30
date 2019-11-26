@@ -49,10 +49,8 @@ function Login(props) {
 
     // if everything is correct on the form
     if (formValid(formErrors)) {
-
       let loginInfo = await loginCheck();
-
-      if (loginInfo.sessionID.length > 0) {
+      if (loginInfo.sessionID && loginInfo.sessionID.length > 0) {
         setCookie("accountID", loginInfo.accountID, { path: "/" });
         setCookie("sessionID", loginInfo.sessionID, { path: "/" });
         setInvalid(false);
