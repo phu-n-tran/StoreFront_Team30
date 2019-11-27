@@ -129,7 +129,9 @@ app.get('/cards', (req,res) => {
             CardHolder,
             CVV, 
             Zip, 
-            CardNumber
+            CardNumber,
+            ExpMonth,
+            ExpYear
         from 
             holds
         inner join 
@@ -152,45 +154,22 @@ app.get('/cards', (req,res) => {
 });
 
 app.get('/cards/add', (req,res) => {
-    const { id, cardHolder, CVV, Zip, CardNumber } = req.query;
-    pool.getConnection(function (err, con) {
-        con.query(`
-        insert into 
-            CardInfo(CardHolder, CVV, Zip, CardNumber) 
-        values
-            ${cardHolder},
-            ${CVV},
-            ${Zip},
-            ${CardNumber}
-        `, (err, results) => {
-            if(err) res.send(err);
+    const { id, cardHolder, CVV, Zip, CardNumber, ExpMonth, ExpYear } = req.query;
+
+    var lastInsert;
+    pool.getConnection(function(err, con){
+        con.query(`insert into CardInfo(CardHolder, CVV, Zip, CardNumber, ExpMonth, ExpYear) values (
+            ${cardHolder}, ${CVV}, ${Zip}, '${CardNumber}', '${ExpMonth}', '${ExpYear}'
+        )`, (err, results) =>{
+            if(err) res.send(err)
             else{
-                con.query(`
-                select cardID from CardInfo 
-                where
-                    CardHolder = ${cardHolder} and
-                    CVV = ${CVV} and
-                    Zip = ${Zip} and
-                    CardNumber = ${CardNumber}`, (err, results) => {
-                        if(err) res.send(err);
-                        else{
-                            con.query(`
-                            insert into
-                                holds(accountID, cardID)
-                            values 
-                                ${id},
-                                ${results[0].cardID}
-                            `, (err,res) => {
-                                if(err) res.send(err)
-                                else{
-                                    res.send(`Successfully added card into account id ${id}`);
-                                }
-                            });
-                        }
-                    });
+                lastInsert = results.insertId;
+                con.query(`insert into holds values(${id}, ${lastInsert})`, (err, results) =>{
+                    if(err) res.send(err);
+                    else res.send("Successfully added card to account");
+                });
             }
         });
-
         con.release();
     });
 });
@@ -388,14 +367,26 @@ app.get('/orders', (req, res) => {
     pool.getConnection(function(err, con) {
         if(!orderID){
             con.query(`
-            select orderID, price from make inner join Orders using (orderID) inner join Account using (accountID) where accountID = ${id}
+            select orderID, price, itemID, quantity, itemName, itemPrice, 
+                image, description
+            from Orders natural join make natural join contain 
+            natural join 
+            (select itemID, itemName, price as itemPrice,
+                description, image from Item) i 
+            where accountID = ${id}
             `, (err, results) => {
                 if(err) res.send(err);
                 else res.send(results);
             });
         } else {
             con.query(`
-            select orderID, price from make inner join Orders using (orderID) inner join Account using (accountID) where accountID = ${id} and orderID = ${orderID}
+            select orderID, price, itemID, quantity, itemName, itemPrice,
+                image, description
+            from Orders natural join make natural join contain 
+            natural join 
+            (select itemID, itemName, price as itemPrice, 
+                description, image from Item) i 
+            where accountID = ${id} and orderID = ${orderID}
             `, (err, results) => {
                 if(err) res.send(err);
                 else res.send(results);
@@ -410,34 +401,48 @@ app.get('/orders', (req, res) => {
 app.get(`/orders/add`, (req, res) => {
     var accountID = req.query.accountID;
     var items = JSON.parse(req.query.items);
-    var price = 0;
+    var prices = 0;
     var lastInsert;
+    var query = `select price from Item where`;
 
-    // console.log(items.length);
+    for(i = 0; i < items.length; i++){
+        if(i == 0) query += ` itemID=${items[0][0]}`
+        else query += ` or itemID=${items[i][0]}`
+    }
+    
     pool.getConnection(function(err, con) {
         con.query(`insert into Orders(price) values('0')`, (err, results) =>{
-            if(err) res.send(err);
+            if(err) res.sendStatus(500);
             else {
                 lastInsert = results.insertId;
-                for(i = 0; i < items.length; i++){
-                    con.query(`insert into contain(orderID, itemID, quantity) values('${lastInsert}','${items[i][0]}','${items[i][1]}')`, (err, results) =>{
-                        if(err) res.send(err);
-                        else{
-                            con.query(`select price from Item where itemID='${items[i][0]}'`, (err, results) =>{
-                                if(err) res.send(err);
-                                else prices += results[0].price;
-                            });
-                        }
+                for(i = 0; i < items.length; i++){ 
+                    con.query(`insert into contain(orderID, itemID, quantity) values(${lastInsert},${items[i][0]},${items[i][1]})`, (err, results) =>{ 
+                        if(err) res.sendStatus(500);
                     });
                 }
-        
-                con.query(`update Orders set price='${price}' where orderID='${lastInsert}'`, (err, results) =>{
-                    if(err) res.send(err);
-                });
-        
-                con.query(`insert into make(accountID, orderID) values('${accountID}', '${lastInsert}')`, (err, results) =>{
-                    if(err) res.send(err);
-                    else res.send(`Successfully created order with id ${lastInsert} associated with account ${accountID}`);
+                con.query(query, (err, results) =>{
+                    if(err) res.sendStatus(500);
+                    else {
+                        for(i = 0; i < results.length; i++){
+                            prices += results[i].price * items[i][1];
+                        }
+                        con.query(`update Orders set price='${prices}' where orderID='${lastInsert}'`, (err, results) =>{
+                            if(err) res.sendStatus(500);
+                            else{
+                                con.query(`insert into make(accountID, orderID) values('${accountID}', '${lastInsert}')`, (err, results) =>{
+                                    if(err) res.sendStatus(500);
+                                    else {
+                                        con.query(`delete from Cart where accountID=${accountID}`, (err, results) =>{
+                                            if(err) res.sendStatus(500);
+                                            else res.send(`Successfully created order with id ${lastInsert} associated with account ${accountID}`);
+                                        })
+                                    }
+                                });
+
+                            }
+                        });
+
+                    }
                 });
             }
         });

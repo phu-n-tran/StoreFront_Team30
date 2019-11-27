@@ -85,8 +85,9 @@ export async function getCards(user) {
 
 export async function addCard(data) {
   fetch(`http://${url}/cards/add?id=${data.accountID}` +
-    `&cardHolder='${data.cardHolder}'&CVV=${data.CVV}` +
-    `&Zip=${data.Zip}&CardNumber=${data.cardNumber}`)
+    `&cardHolder=${data.cardHolder}&CVV=${data.CVV}` +
+    `&Zip=${data.Zip}&CardNumber=${data.cardNumber}` +
+    `&ExpMonth=${data.ExpMonth}&ExpYear=${data.ExpYear}`)
     .catch((err) => {
       console.error(err);
     });

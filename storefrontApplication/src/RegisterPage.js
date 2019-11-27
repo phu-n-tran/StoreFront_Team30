@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import NumberFormat from "react-number-format";
 import "./App.css";
 
 
@@ -148,7 +149,7 @@ class RegisterPage extends Component {
             </div>
             <div className="phoneNumber">
               <label htmlFor="phoneNumber">Phone Number</label>
-              <input
+              <NumberFormat format="###-###-####"
                 className={formErrors.phoneNumber.length > 0 ? "error" : null}
                 placeholder="###-###-####"
                 type="tel"
