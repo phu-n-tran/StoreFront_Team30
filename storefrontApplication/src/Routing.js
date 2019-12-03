@@ -5,6 +5,7 @@ import RegisterPage from "./RegisterPage";
 import HomePage from "./HomePage";
 import CartPage from "./CartPage";
 import ItemByCategory from "./ItemByCategory";
+import ItemByItemID from "./ItemByItemID";
 import Categories from "./Categories";
 import PaymentPage from "./PaymentPage";
 import HistoryPage from "./HistoryPage";
@@ -28,9 +29,12 @@ function Routing({ appProps }) {
         <PrivateRoute exact path="/cart"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={CartPage} />
-        <PrivateRoute exact path="/item/:id"
+        <PrivateRoute exact path="/category/:id"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={ItemByCategory} />
+        <PrivateRoute exact path="/item/:id"
+          appProps={{ allowed: appProps.authenticated, ...appProps }}
+          component={ItemByItemID} />
         <PrivateRoute exact path="/categories"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={Categories} />

@@ -264,6 +264,15 @@ function PaymentPage(props) {
     setChecked(!checked);
   };
 
+  // function inside of component
+  function handleClickItem(itemID) {
+    props.history.push(`/item/${itemID}`);
+  }
+
+  function handleClickCart() {
+    props.history.push("/cart");
+  }
+
   return (
     <div className="form-wrapper-payment">
       <div className="row">
@@ -434,7 +443,7 @@ function PaymentPage(props) {
                     <option value="None">
                       Select saved options (if exist)
                     </option>
-                    {cardList.map((item, index) => {
+                    {cardList && cardList.map((item, index) => {
                       return (
                         <option key={index} value={item.CardNumber}>
                           {"****-****-****-" + item.CardNumber.split("-")[3]}
@@ -528,18 +537,23 @@ function PaymentPage(props) {
 
         <div className="col-25" align="left">
           <div className="mycontainer">
-            <h4><a href={"http://localhost:3000/cart"}>Cart</a>
+            <h4>
+              <button 
+                className="button-style" 
+                onClick={() => handleClickCart()}>Cart</button>
               <span className="price" style={{ color: "black" }}>
                 <i className="fa fa-shopping-cart"></i>
                 <b>{getItemsQuanlity()}</b>
               </span>
             </h4>
-            {cartItems.map((item, index) => {
+            {cartItems && cartItems.map((item, index) => {
               return (
                 <p key={index}>
-                  <a href={"http://localhost:3000/item/" + item.itemID}>
+                  <button 
+                    className="button-style" 
+                    onClick={() => handleClickItem(item.itemID)}>
                     {item.itemName}
-                  </a>
+                  </button>
                   <span className="price">
                     {item.quantity} X ${item.price.toFixed(2)}
                   </span>

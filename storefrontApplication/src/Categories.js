@@ -14,7 +14,7 @@ function Categories(props) {
   }
   
   function handleClick(id) {
-    props.history.push(`/item/${id}`);
+    props.history.push(`/category/${id}`);
   }
 
   return (

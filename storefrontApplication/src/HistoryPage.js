@@ -38,9 +38,14 @@ function HistoryPage(props) {
     setHashMap(hashMap);
   }
 
+  // function inside of component
+  function handleClick(itemID) {
+    props.history.push(`/item/${itemID}`);
+  }
+
   return (
     <div>
-      {keysList.map((item, index) => {
+      {keysList && keysList.map((item, index) => {
         return (
           <div key={index} className="orderBorder" align="left">
             <h3>Order Number ------{item}</h3>
@@ -49,7 +54,7 @@ function HistoryPage(props) {
                 <i>Total: ${hashMap[item].total.toFixed(2)}</i>
               </h5>
             </span>
-            {orderList.map((myItem, myIndex) => {
+            {orderList && orderList.map((myItem, myIndex) => {
               return (
                 parseInt(myItem.orderID, 10) !== parseInt(item, 10)
                   ? ""
@@ -63,9 +68,9 @@ function HistoryPage(props) {
                     </div>
                     <div className="corderColumn" align="left">
                       <h5>
-                        <a href={"http://localhost:3000/item/" + myItem.itemID}>
+                        <button onClick={() => handleClick(myItem.itemID)}>
                           {myItem.itemName}
-                        </a>
+                        </button>
                       </h5>
                       <p> description: {myItem.description}</p>
                       <p>Number of Items: {myItem.quantity}

@@ -46,7 +46,7 @@ function CartPage(props) {
       <h1>Total: ${getTotal().toFixed(2)}</h1>
       {/* TODO: refactor return function in Item.js
         like here to become one component */}
-      {cartItems.map((item, index) => {
+      {cartItems && cartItems.map((item, index) => {
         return (
           <Item key={index} item={item}
             children={

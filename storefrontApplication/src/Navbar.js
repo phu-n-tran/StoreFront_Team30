@@ -18,10 +18,12 @@ function Navigation(props) {
   const [isOpen, toggleOpen] = useState(false);
   const [dropdownOpen, toggleDropdownOpen] = useState(false);
   const navLinks = [
-    { name: "View Categories", link: "/categories" }
+    { name: "View Categories", link: "/categories" },
+    { name: "View Orders", link: "/history" }
   ];
   const accountLinks = [
     { name: "Cart", link: "/cart", callback: () => {} },
+    { name: "Checkout", link: "/payment", callback: () => {} },
     { name: "Log out", link: "/login", callback: props.handleLogout }
   ];
 
