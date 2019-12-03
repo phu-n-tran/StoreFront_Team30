@@ -4,6 +4,11 @@ import { roundToTwo } from "./APIFunctions";
 
 function Item(props) {
   const { itemName, price, description, itemID, image } = props.item;
+  let renderedImage = "https://upload.wikimedia.org/" +
+    "wikipedia/commons/a/ac/No_image_available.svg";
+  try {
+    renderedImage = require(`./storefrontImages/${image}`);
+  } catch (error) { }
 
   return (
     <ListGroupItem key={itemID}>
@@ -15,9 +20,9 @@ function Item(props) {
           <Row>
             <Col>
               <img
-                src={require(`./storefrontImages/${image}`)}
+                src={renderedImage}
                 alt={`${itemName}`}
-                style={{width: "30rem"}} />
+                style={{ width: "30rem" }} />
             </Col>
             <Col>
               <p>Price: ${roundToTwo(price)}</p>
