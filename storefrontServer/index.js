@@ -281,13 +281,36 @@ app.get('/item/categories', (req, res) => {
     });
 });
 
-app.get('/item', (req, res) => {
-    const { itemID, categoryID } = req.query;
-    pool.getConnection(function (err, con) {
-        if (!itemID && !categoryID) {
-            con.query(`select * from Item`, (err, results) => {
-                if (err) res.send(err);
-                else {
+app.get('/category', (req,res) => {
+    const { categoryName } = req.query;
+    pool.getConnection(function(err, con) {
+        con.query(`select categoryID from Categories where categoryName like`+
+        ` '%${categoryName}%'`, (err, results) =>{
+            if(err) res.send(err)
+            else res.send(results);
+        });
+        con.release();
+    });
+});
+
+app.get('/item', (req,res) => {
+    const { itemName, itemID, categoryID } = req.query;
+    pool.getConnection(function(err, con){
+        if(itemName) {
+            con.query(`select itemID from Item where itemName like`+
+            ` '%${itemName}%'`, (err, results) =>{
+                if(err) res.send(err)
+                else res.send(results);
+            });
+        } else if(!itemID && !categoryID) {
+            con.query(
+                "select c.categoryName, i.itemID, i.itemName, i.price, i.description, i.image, i.quantity" +
+                " from belongs inner join Item as i using (itemID) inner join Categories as c using (categoryID) where belongs.categoryID = categoryID and belongs.itemID = itemID;", 
+                      (err, results) => {
+                        //   console.log(error);
+                          
+                if(err) res.send(err);
+                else{
                     res.send(results)
                 }
             });

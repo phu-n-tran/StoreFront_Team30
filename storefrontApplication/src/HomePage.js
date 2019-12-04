@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { getItems } from "./APIFunctions";
 import Item from "./Item";
 import CartModal from "./CartModal";
+import SearchBar from "./SearchBar";
 
-function HomePage() {
+function HomePage(props) {
   const [items, setItems] = useState();
   const [currentItem, setCurrentItem] = useState();
   const [modalOpen, setModalOpen] = useState();
@@ -28,6 +29,7 @@ function HomePage() {
   return (
     <div>
       <h1>Welcome! See items below.</h1>
+      <SearchBar {...props} />
       {modalOpen ? <CartModal
         item={currentItem}
         modalOpen={modalOpen}

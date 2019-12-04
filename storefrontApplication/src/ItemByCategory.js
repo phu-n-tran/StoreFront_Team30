@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import Item from "./Item";
 import CartModal from "./CartModal";
 import { getCategory } from "./APIFunctions";
+import SearchBar from "./SearchBar";
 
-function ItemByCategory() {
+function ItemByCategory(props) {
   const [currentItem, setCurrentItem] = useState();
   const [modalOpen, setModalOpen] = useState();
   const [items, setItems] = useState([]);
@@ -30,7 +31,7 @@ function ItemByCategory() {
 
   return (
     <div style={{ textAlign: "left" }} className="Employees">
-
+      <SearchBar {...props} />
       {modalOpen ? <CartModal
         item={currentItem}
         modalOpen={modalOpen}

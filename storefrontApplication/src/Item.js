@@ -3,7 +3,8 @@ import { ListGroupItem, Row, Col, Button } from "reactstrap";
 import { roundToTwo } from "./APIFunctions";
 
 function Item(props) {
-  const { itemName, price, description, itemID, image } = props.item;
+  const { itemName, price,
+    description, itemID, image } = props.item;
   let renderedImage = "https://upload.wikimedia.org/" +
     "wikipedia/commons/a/ac/No_image_available.svg";
   try {

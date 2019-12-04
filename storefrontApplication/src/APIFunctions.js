@@ -144,6 +144,41 @@ export async function getItemInCategory(itemID, categoryID) {
   return objects;
 }
 
+export async function searchByCategoryName(categoryName) {
+  let objects = [];
+  let categoryIDs = [];
+  await fetch(`http://${url}/category?categoryName=${categoryName}`)
+    .then((response) => response.json())
+    .then(async (response) => {
+      response.map(x => categoryIDs.push(x.categoryID));
+      await Promise.all(categoryIDs.map(async (id) => {
+        objects = objects.concat(await getCategory(id));
+      }));
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return objects;
+}
+
+export async function searchByItemName(itemName) {
+  let objects = [];
+  let itemIDs = [];
+  await fetch(`http://${url}/item?itemName=${itemName}`)
+    .then((response) => response.json())
+    .then(async (response) => {
+      response.map(x => itemIDs.push(x.itemID));
+      await Promise.all(itemIDs.map(async (id) => {
+        let currentItem = await getItems(id);
+        objects = objects.concat(currentItem);
+      }));
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return objects;
+}
+
 export async function addItem(data) {
   fetch(`http://${url}/item/add?name='${data.name}'` +
     `&price='${data.price}'&description='${data.description}'` +

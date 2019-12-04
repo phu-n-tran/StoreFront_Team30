@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Button, ListGroupItem } from "reactstrap";
 import { getCategory } from "./APIFunctions";
+import SearchBar from "./SearchBar";
 
 function Categories(props) {
   const [categories, setCategories] = useState();
@@ -19,6 +20,7 @@ function Categories(props) {
 
   return (
     <div style={{ textAlign: "left" }} className="Employees">
+      <SearchBar {...props} />
       {categories && categories.map((item, index) => {
         return (
           <ListGroupItem key={index}>
