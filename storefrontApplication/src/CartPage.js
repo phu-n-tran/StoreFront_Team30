@@ -40,6 +40,10 @@ function CartPage(props) {
     removeFromCart(accountID, item.itemID, 1);
   }
 
+  function submitCart(){
+    props.history.push("/payment");
+  }
+
   return (
     <div>
       <p>CartPage</p>
@@ -57,8 +61,8 @@ function CartPage(props) {
             cartPage={true} />
         );
       })}
-      <Button>
-        Submit
+      <Button size="lg" onClick={submitCart} block>
+        Checkout
       </Button>
     </div>
   );

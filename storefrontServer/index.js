@@ -159,7 +159,7 @@ app.get('/cards/add', (req,res) => {
     var lastInsert;
     pool.getConnection(function(err, con){
         con.query(`insert into CardInfo(CardHolder, CVV, Zip, CardNumber, ExpMonth, ExpYear) values (
-            ${cardHolder}, ${CVV}, ${Zip}, '${CardNumber}', '${ExpMonth}', '${ExpYear}'
+            '${cardHolder}', ${CVV}, ${Zip}, '${CardNumber}', '${ExpMonth}', '${ExpYear}'
         )`, (err, results) =>{
             if(err) res.send(err)
             else{

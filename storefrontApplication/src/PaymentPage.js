@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react"; // eslint-disable-next-line
 import { getCards, getCartItems, addOrders,getCartItemsByID, getUser, 
-  addCard } from "./APIFunctions";
+  addCard, deleteCard } from "./APIFunctions";
 import { useCookies } from "react-cookie";
 
 import "./PaymentPage.css";
 
 function PaymentPage(props) {
+  const [cardID, setCardID] = useState(null);
+  const [cardIndex, setCardIndex] = useState(null);
   const [disabled, setDisable] = useState(false);
   const [checked, setChecked] = useState(false);
   const [fullname, setFullname] = useState("");
@@ -79,7 +81,7 @@ function PaymentPage(props) {
     return total;
   }
 
-  function getItemsQuanlity() {
+  function getItemsQuantity() {
     let totalQuantity = 0;
     cartItems.forEach(function (item) {
       totalQuantity += item.quantity;
@@ -252,6 +254,8 @@ function PaymentPage(props) {
           formErrors.cvv="";
           setFormErrors(formErrors);
           
+          setCardIndex(index);
+          setCardID(cardList[index].cardID);
           setDisable(true);
           setChecked(true);
         }
@@ -271,6 +275,22 @@ function PaymentPage(props) {
 
   function handleClickCart() {
     props.history.push("/cart");
+  }
+
+  function handleRemoveCard(){
+    let data = {
+      accountID: cookie.accountID,
+      cardID: cardID
+    };
+    setCardHolderName("");
+    setCardNumber("");
+    setExpMonth("");
+    setExpYear("");
+    setCvv("");
+    setDisable(false);
+    setChecked(false);
+    cardList.splice(cardIndex, 1);
+    deleteCard(data);
   }
 
   return (
@@ -529,9 +549,14 @@ function PaymentPage(props) {
 
               </div>
               <button type="submit" className="paymentbtn" >
-                Continue to checkout
+                Submit Order
               </button>
             </form>
+            <div className="row">
+              <div className="col-50" align="right">
+                <button onClick={handleRemoveCard}>X</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -543,7 +568,7 @@ function PaymentPage(props) {
                 onClick={() => handleClickCart()}>Cart</button>
               <span className="price" style={{ color: "black" }}>
                 <i className="fa fa-shopping-cart"></i>
-                <b>{getItemsQuanlity()}</b>
+                <b>{getItemsQuantity()}</b>
               </span>
             </h4>
             {cartItems && cartItems.map((item, index) => {
