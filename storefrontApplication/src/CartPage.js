@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   getCartItems, getCartItemsByID,
   removeFromCart, addToCart
@@ -6,67 +6,113 @@ import {
 import { Button } from "reactstrap";
 import QuantityButtons from "./QuantityButtons";
 import Item from "./Item";
-import { useCookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 
-function CartPage(props) {
-  const [cartItems, setCartItems] = useState([]);
-  const [cookies] = useCookies(["name"]);
-  const { accountID } = cookies;
-
-  useEffect(() => {
-    renderCartItems();
-    //eslint-disable-next-line
-  }, []);
-
-  async function renderCartItems() {
-    let items = await getCartItems(accountID);
-    setCartItems(await getCartItemsByID(items));
+class CartPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cartItems: [],
+      total: 0,
+      cookies: new Cookies()
+    };
   }
 
-  function getTotal() {
-    let total = 0;
-    cartItems.forEach(function (item) {
-      total += item.quantity * item.price;
+  componentDidMount() {
+    this.renderCartItems();
+  }
+
+  renderCartItems = async () => {
+    let items = await getCartItems(this.state.cookies.get("accountID"));
+    let databaseResponse = await getCartItemsByID(items);
+    this.setState({
+      cartItems: databaseResponse,
     });
-    return total;
+    this.getTotal(databaseResponse);
   }
 
-  function handleAdd(item) {
-    addToCart(accountID, item.itemID, 1);
-    cartItems.find((x) => x.itemID === item.itemID).quantity += 1;
+  getTotal = (items) => {
+    let cartTotal = 0;
+    items.forEach(function (item) {
+      cartTotal += item.quantity * item.price;
+    });
+    this.setState({
+      total: cartTotal.toFixed(2)
+    });
   }
 
-  function handleRemove(item) {
-    removeFromCart(accountID, item.itemID, 1);
+  handleAdd = async (item) => {
+    await addToCart(this.state.cookies.get("accountID"), item.itemID, 1);
+    let tempItems = this.state.cartItems;
+    tempItems.find((x) => x.itemID === item.itemID).quantity += 1;
+    this.setState({
+      cartItems: tempItems,
+      total: parseFloat(parseFloat(this.state.total) + item.price)
+        .toFixed(2)
+    });
   }
 
-  function submitCart(){
-    props.history.push("/payment");
+  handleRemove = async (item) => {
+    await removeFromCart(this.state.cookies.get("accountID"), item.itemID, 1);
+    let tempItems = this.state.cartItems;
+    if (item.quantity === 1) {
+      tempItems = tempItems.filter((x) => x.itemID !== item.itemID);
+    } else {
+      tempItems.find((x) => {
+        if (x.itemID === item.itemID)
+          x.quantity -= 1;
+        return true;
+      });
+    }
+    this.setState({
+      cartItems: tempItems,
+      total: parseFloat(parseFloat(this.state.total) - item.price)
+        .toFixed(2)
+    });
   }
 
-  return (
-    <div>
-      <p>CartPage</p>
-      <h1>Total: ${getTotal().toFixed(2)}</h1>
-      {/* TODO: refactor return function in Item.js
-        like here to become one component */}
-      {cartItems && cartItems.map((item, index) => {
-        return (
-          <Item key={index} item={item}
-            children={
-              <QuantityButtons
-                item={item} handleAdd={handleAdd}
-                handleRemove={handleRemove} />
-            }
-            cartPage={true} />
-        );
-      })}
-      <Button size="lg" onClick={submitCart} block>
-        Checkout
-      </Button>
-    </div>
-  );
+  renderButtonOrMessage = () => {
+    if (this.state.cartItems.length) {
+      return (
+        <Button onClick={this.submitCart} size="lg">
+          Submit
+        </Button>
+      );
+    } else {
+      return (
+        <h4>
+          Your cart is empty.
+        </h4>
+      );
+    }
+  }
+
+  submitCart = () => {
+    this.props.history.push("/payment");
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>{this.state.cartItems.length ?
+          `Total: $${this.state.total}` : ""}</h1>
+        {this.state.cartItems && this.state.cartItems.map((item, index) => {
+          return (
+            <Item key={index} item={item}
+              children={
+                <QuantityButtons
+                  item={item}
+                  handleAdd={async (item) => await this.handleAdd(item)}
+                  handleRemove={async (item) => await this.handleRemove(item)}
+                />
+              }
+              cartPage={true} />
+          );
+        })}
+        {this.renderButtonOrMessage()}
+      </div>
+    );
+  }
 }
-
 
 export default CartPage;
