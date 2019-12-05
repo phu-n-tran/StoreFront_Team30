@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Collapse,
   Navbar,
@@ -13,16 +13,31 @@ import {
   DropdownToggle,
   DropdownMenu
 } from "reactstrap";
+import { getUser } from "./APIFunctions";
+import { useCookies } from "react-cookie";
+import MdCart from "react-ionicons/lib/MdCart";
 
 function Navigation(props) {
   const [isOpen, toggleOpen] = useState(false);
   const [dropdownOpen, toggleDropdownOpen] = useState(false);
+  const [email, setEmail] = useState();
+  const [cookies] = useCookies(["name"]);
+
+  useEffect(() => {
+    getUserInfo();
+  });
+
+  async function getUserInfo() {
+    if (props.authed) {
+      let response = await getUser({ accountID: cookies.accountID });
+      setEmail(response[0].email);
+    }
+  }
+
   const navLinks = [
-    { name: "View Categories", link: "/categories" },
-    { name: "View Orders", link: "/history" }
+    { name: "Categories", link: "/categories" }
   ];
   const accountLinks = [
-    { name: "Cart", link: "/cart", callback: () => {} },
     { name: "Proflie", link: "/profile-view", callback: () => {} },
     { name: "Checkout", link: "/payment", callback: () => {} },
     { name: "Log out", link: "/login", callback: props.handleLogout }
@@ -31,28 +46,33 @@ function Navigation(props) {
   function getDropDown() {
     if (props.authed) {
       return (
-        <Dropdown
-          navbar="true"
-          isOpen={dropdownOpen}
-          toggle={() => toggleDropdownOpen(!dropdownOpen)}
-        >
-          <DropdownToggle navbar="true" caret>
-            Account
-          </DropdownToggle>
-          <DropdownMenu dark="true">
-            {accountLinks.map((link, index) => {
-              return (
-                <DropdownItem key={index}>
-                  <NavLink
-                    onClick={link.callback}
-                    href={link.link}>
-                    {link.name}
-                  </NavLink>
-                </DropdownItem>
-              );
-            })}
-          </DropdownMenu>
-        </Dropdown>
+        <React.Fragment>
+          <NavLink href="/cart"><MdCart color="white" /></NavLink>
+          <Dropdown
+            navbar="true"
+            isOpen={dropdownOpen}
+            toggle={() => toggleDropdownOpen(!dropdownOpen)}
+          >
+            <DropdownToggle style={{ backgroundColor: "#3d1a1a" }}
+              navbar="true">
+              My Account
+            </DropdownToggle>
+            <DropdownMenu dark="true" right>
+              <DropdownItem header>Signed in as: {email}</DropdownItem>
+              {accountLinks.map((link, index) => {
+                return (
+                  <DropdownItem key={index}>
+                    <NavLink
+                      onClick={link.callback}
+                      href={link.link}>
+                      {link.name}
+                    </NavLink>
+                  </DropdownItem>
+                );
+              })}
+            </DropdownMenu>
+          </Dropdown>
+        </React.Fragment>
       );
     } else {
       return <p />;
@@ -60,9 +80,11 @@ function Navigation(props) {
   }
 
   return (
-    <Navbar color="dark" dark={true} expand="sm">
+    <Navbar style={{ backgroundColor: "#3d1a1a" }} dark={true} expand="sm">
       <Container>
-        <NavbarBrand href="/">StoreFront Team 30</NavbarBrand>
+        <NavbarBrand href="/">
+          StoreFront
+        </NavbarBrand>
         <Collapse isOpen={isOpen} navbar={true}>
           <Nav className="mr-auto" navbar>
             {props.authed && navLinks.map((option, index) => {
