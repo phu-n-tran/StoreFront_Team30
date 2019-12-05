@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Button, ListGroupItem } from "reactstrap";
+import { Button, ListGroupItem } from "reactstrap";
 import { getCategory } from "./APIFunctions";
 import SearchBar from "./SearchBar";
 
@@ -13,26 +13,34 @@ function Categories(props) {
   async function getCategories() {
     setCategories(await getCategory());
   }
-  
+
   function handleClick(id) {
     props.history.push(`/category/${id}`);
   }
 
   return (
-    <div style={{ textAlign: "left" }} className="Employees">
+    <div style={{ textAlign: "center" }} className="Employees">
       <SearchBar {...props} />
       {categories && categories.map((item, index) => {
         return (
           <ListGroupItem key={index}>
             <div style={{ display: "inline-block", width: "90%" }}>
-              <div style={{ float: "left" }}>
-                <Row>
-                  <h3>{item.categoryName}</h3>
-                </Row>
-                <Button onClick={() => handleClick(index + 1)}>
-                  See Items
-                </Button>
+              <div style={{ float: "center" }}>
+                <img src={require("./storefrontImages/categories/" +
+                  item.categoryName.toLowerCase() + ".png")}
+                alt={item.categoryName}
+                height="200"
+                width="200"
+                />
               </div>
+              <Button onClick={() => handleClick(index + 1)}
+                style={{
+                  marginTop: "5px",
+                  fontSize: "20px",
+                  width: "200px"
+                }}>
+                {item.categoryName}
+              </Button>
             </div>
           </ListGroupItem>
         );
