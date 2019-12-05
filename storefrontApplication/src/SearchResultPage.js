@@ -45,7 +45,12 @@ export default function SearchResultPage(props) {
   return (
     <Container>
       <SearchBar {...props} />
-      <h3>Search result for {userQuery}</h3>
+      {
+        userQuery ? 
+          <h3>Search result for {userQuery}</h3>
+          :
+          <h3>Search for items and categories above!</h3>
+      }
       {modalOpen ? <CartModal
         item={currentItem}
         modalOpen={modalOpen}
@@ -56,7 +61,7 @@ export default function SearchResultPage(props) {
             <Item key={index} handleAddToCart={showCartModal} item={item} />
           );
         })}
-      {!items.length && !loading ?
+      {!items.length && !loading && userQuery ?
         <h4>Nothing was found from your query.</h4> : <React.Fragment />}
     </Container>
   );

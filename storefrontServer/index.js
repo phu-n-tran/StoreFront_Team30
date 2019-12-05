@@ -99,9 +99,8 @@ app.get('/users/login', (req, res) => {
 app.get('/users', (req, res) => {
     const { id } = req.query;
     pool.getConnection(function (err, con) {
-        con.query(`select * from Account where accountID='${id}'`, (err, results) => {
+        con.query(`select * from Account where accountID=${id}`, (err, results) => {
             if (err) res.send(err);
-
             else {
                 res.send({
                     ...results
