@@ -42,7 +42,8 @@ function Navigation(props) {
     { name: "Search", link: "/search" }
   ];
   const accountLinks = [
-    { name: "Proflie", link: "/profile-view", callback: () => { } },
+    { name: "Profile", link: "/profile-view", callback: () => { } },
+    { name: "Order History", link: "/history", callback: () => { } },
     { name: "Log out", link: "/login", callback: props.handleLogout }
   ];
 
