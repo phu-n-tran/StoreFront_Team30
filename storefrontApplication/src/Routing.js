@@ -17,8 +17,15 @@ import { PrivateRoute } from "./PrivateRoute";
 function Routing({ appProps }) {
   const signedOutRoutes = [
     { path: "/login", C: LoginPage },
-    { path: "/register", C: RegisterPage },
-    { path: "/home", C: HomePage },
+    { path: "/register", C: RegisterPage }
+  ];
+  const signedInRoutes = [
+    { path: "/", C: HomePage },
+    { path: "/search", C: SearchResultPage },
+    { path: "/cart", C: CartPage },
+    { path: "/category/:id", C: ItemByCategory },
+    { path: "/item/:id", C: ItemByItemID },
+    { path: "/categories", C: Categories },
     { path: "/payment", C: PaymentPage },
     { path: "/history", C: HistoryPage },
     { path: "/profile-view", C: ProfileViewPage },
@@ -28,36 +35,13 @@ function Routing({ appProps }) {
   return (
     <div>
       <Switch>
-        <PrivateRoute exact path="/"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={HomePage} />
-        <PrivateRoute exact path="/search"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={SearchResultPage} />
-        <PrivateRoute exact path="/cart"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={CartPage} />
-        <PrivateRoute exact path="/category/:id"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={ItemByCategory} />
-        <PrivateRoute exact path="/item/:id"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={ItemByItemID} />
-        <PrivateRoute exact path="/categories"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={Categories} />
-        <PrivateRoute exact path="/payment"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={PaymentPage} />
-        <PrivateRoute exact path="/history"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={HistoryPage} />
-        <PrivateRoute exact path="/profile-view"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={ProfileViewPage} />
-        <PrivateRoute exact path="/profile-edit"
-          appProps={{ allowed: appProps.authenticated, ...appProps }}
-          component={ProfileEditPage} />
+        {signedInRoutes.map((route) => {
+          return (
+            <PrivateRoute exact path={route.path}
+              appProps={{ allowed: appProps.authenticated, ...appProps }}
+              component={route.C} />
+          );
+        })}
         {signedOutRoutes.map((x, index) => {
           return (
             <Route key={index} exact path={x.path}
