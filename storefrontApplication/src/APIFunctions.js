@@ -49,6 +49,30 @@ export async function getUser(user) {
   return objects;
 }
 
+export async function getUserByEmail(email) {
+  let objects = [];
+  await fetch(`http://${url}/users/emailcheck?email=${email}`)
+    .then((response) => response.json())
+    .then((response) => {
+      objects = response;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return objects;
+}
+
+
+export async function updateUser(user) {
+  fetch(`http://${url}/users/update?email=${user.email}&cell=${user.cell}`+
+    `&password=${user.password}&name=${user.name}&address=${user.address}`+
+    `&accountID=${user.accountID}`)
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+
 export async function loginUser(user) {
   let objects = [];
   await fetch(`http://${url}/users/login?email=${user.email}` +
@@ -221,6 +245,20 @@ export async function addOrders(data, accountID) {
     .catch((err) => {
       console.error(err);
     });
+}
+
+export async function getNumberOfOrders(accountID) {
+  let objects = [];
+  const query = `http://${url}/orders/amount?accountID=${accountID}`;
+  await fetch(`${query}`)
+    .then((response) => response.json())
+    .then((response) => {
+      objects = response;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return objects;
 }
 
 export async function getStock(stockID) {

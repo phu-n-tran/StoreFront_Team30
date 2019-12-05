@@ -34,6 +34,38 @@ app.get('/users/session', (req, res) => {
     });
 });
 
+
+
+app.get('/users/update', (req, res) => {
+    const { email, password, name, cell, address, accountID } = req.query;
+    pool.getConnection(function (err, con) {
+        con.query(`update Account set email='${email}', password='${password}', 
+            name='${name}', cell='${cell}', address='${address}' 
+            where accountID=${accountID}`, (err, results) => {
+            if (err) res.send(err);
+            else res.send(results);
+        });
+        con.release();
+    });
+
+});
+
+
+app.get('/users/emailcheck', (req, res) => {
+    const { email } = req.query;
+    pool.getConnection(function (err, con) {
+        con.query(`select accountID from Account where email='${email}'`, (err, results) => {
+            if (err) res.send(err);
+            else {
+                res.send(results);
+            }
+        });
+        con.release();
+    });
+});
+
+
+
 // /users/login?email={email}&password={password}
 app.get('/users/login', (req, res) => {
     const { email, password } = req.query;
@@ -420,6 +452,21 @@ app.get('/orders', (req, res) => {
         con.release();
     });
 });
+
+app.get('/orders/amount', (req, res) => {
+    const { accountID } = req.query;
+    pool.getConnection(function (err, con) {
+        con.query(`SELECT COUNT(*) AS counting from make where accountID=${accountID}`, (err, results) => {
+            if (err) res.send(err);
+            else {
+                res.send(results);
+            }
+        });
+        con.release();
+    });
+});
+
+
 
 // /orders/add?items=[[itemid, quantity], [itemid, quantity]]&accountID=`accountID`
 app.get(`/orders/add`, (req, res) => {

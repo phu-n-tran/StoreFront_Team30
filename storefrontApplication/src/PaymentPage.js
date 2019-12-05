@@ -38,6 +38,7 @@ function PaymentPage(props) {
   const [cookie] = useCookies(["name"]);
   const [cardList, setCardList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [selectedCard, setSelectedCard] = useState("None");
 
   useEffect(() => {
     retrieveCardInfo();
@@ -228,6 +229,7 @@ function PaymentPage(props) {
   const handleSelect = e => {
     // console.log(e.target.value);
     // console.log(cardList);
+    setSelectedCard(e.target.value);
     if (e.target.value === "None") {
       setCardHolderName("");
       setCardNumber("");
@@ -278,6 +280,7 @@ function PaymentPage(props) {
   }
 
   function handleRemoveCard(){
+    setSelectedCard("None");
     let data = {
       accountID: cookie.accountID,
       cardID: cardID
@@ -459,7 +462,10 @@ function PaymentPage(props) {
                       (<span className="errorMessage">
                         {formErrors.cardNumber}</span>)}
                   </div>
-                  <select className="payment-input" onChange={handleSelect}>
+                  <select
+                    value={selectedCard}
+                    className={disabled ? "select-input" : "payment-input"} 
+                    onChange={handleSelect}>
                     <option value="None">
                       Select saved options (if exist)
                     </option>
@@ -470,8 +476,9 @@ function PaymentPage(props) {
                         </option>
                       );
                     })}
-
                   </select>
+                  {disabled ? 
+                    <button onClick={handleRemoveCard}>Delete</button> : ""}
 
                   <div align="center">
                     <label htmlFor="expmonth">Exp Month</label>
@@ -552,11 +559,6 @@ function PaymentPage(props) {
                 Submit Order
               </button>
             </form>
-            <div className="row">
-              <div className="col-50" align="right">
-                <button onClick={handleRemoveCard}>X</button>
-              </div>
-            </div>
           </div>
         </div>
 

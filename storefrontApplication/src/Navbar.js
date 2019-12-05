@@ -23,6 +23,7 @@ function Navigation(props) {
   ];
   const accountLinks = [
     { name: "Cart", link: "/cart", callback: () => {} },
+    { name: "Proflie", link: "/profile-view", callback: () => {} },
     { name: "Checkout", link: "/payment", callback: () => {} },
     { name: "Log out", link: "/login", callback: props.handleLogout }
   ];

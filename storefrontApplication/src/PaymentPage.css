@@ -89,6 +89,15 @@
     border-radius: 3px;
   }
 
+  .select-input {
+    width: 80%;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
   .errorMessage {
     color: red;
     font-size: 0.75em;

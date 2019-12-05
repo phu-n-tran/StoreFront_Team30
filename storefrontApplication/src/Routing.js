@@ -10,6 +10,8 @@ import ItemByItemID from "./ItemByItemID";
 import Categories from "./Categories";
 import PaymentPage from "./PaymentPage";
 import HistoryPage from "./HistoryPage";
+import ProfileViewPage from "./ProfileViewPage";
+import ProfileEditPage from "./ProfileEditPage";
 import { PrivateRoute } from "./PrivateRoute";
 
 function Routing({ appProps }) {
@@ -19,6 +21,8 @@ function Routing({ appProps }) {
     { path: "/home", C: HomePage },
     { path: "/payment", C: PaymentPage },
     { path: "/history", C: HistoryPage },
+    { path: "/profile-view", C: ProfileViewPage },
+    { path: "/profile-edit", C: ProfileEditPage},
   ];
 
   return (
@@ -48,6 +52,12 @@ function Routing({ appProps }) {
         <PrivateRoute exact path="/history"
           appProps={{ allowed: appProps.authenticated, ...appProps }}
           component={HistoryPage} />
+        <PrivateRoute exact path="/profile-view"
+          appProps={{ allowed: appProps.authenticated, ...appProps }}
+          component={ProfileViewPage} />
+        <PrivateRoute exact path="/profile-edit"
+          appProps={{ allowed: appProps.authenticated, ...appProps }}
+          component={ProfileEditPage} />
         {signedOutRoutes.map((x, index) => {
           return (
             <Route key={index} exact path={x.path}
