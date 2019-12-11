@@ -521,52 +521,6 @@ app.get(`/orders/add`, (req, res) => {
     });
 });
 
-app.get('/stock', (req, res) => {
-    const { stockID } = req.query;
-
-    pool.getConnection(function (err, con) {
-        con.query(`select * from StockLevels where stockID='${stockID}'`, (err, results) => {
-            if (err) res.send(err);
-            else res.send(results);
-        });
-
-        con.release()
-    });
-});
-
-app.get('/stock/add', (req, res) => {
-    const { itemID, quantity, date } = req.query;
-    var lastInsert;
-
-    pool.getConnection(function (err, con) {
-        con.query(`insert into StockLevels(date, quantity) values('${date}', '${quantity}')`, (err, results) => {
-            if (err) res.send(err);
-            else {
-                lastInsert = results.insertId;
-
-                con.query(`insert into has(stockID, itemID) values('${lastInsert}','${itemID}')`, (err, results) => {
-                    if (err) res.send(err);
-                });
-
-                con.query(`select quantity from Item where itemID='${itemID}'`, (err, results) => {
-                    if (err) res.send(err);
-                    else {
-                        var newQuantity = parseInt(quantity) + parseInt(results[0].quantity);
-                        con.query(`update Item set quantity='${newQuantity}' where itemID='${itemID}'`, (err, results) => {
-                            if (err) res.send(err);
-                            else res.send({
-                                itemID: itemID,
-                                newQuantity: newQuantity
-                            });
-                        });
-                    }
-                });
-            }
-        });
-
-        con.release();
-    });
-});
 
 app.listen(4000, () => {
     console.log('Backend server listening on port 4000');

@@ -84,13 +84,13 @@
 <br/>
 <br/>
 
-### Item(<u>itemID</u>, name, price, category)
+### Item(<u>itemID</u>, name, price)
 <img src="../project_diagram/Tables/Item.png" />
 
 ### Item Categories(<u>categoryID</u>, categoryName)
 <img src="../project_diagram/Tables/Categories.png" />
 
-### StockLevels(<u>stockID</u>, itemID, stockDate, quantity)
+### StockLevels(<u>stockID</u>, stockDate, quantity)
 <img src="../project_diagram/Tables/StockLevels.png" />
 
 

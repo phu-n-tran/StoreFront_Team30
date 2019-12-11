@@ -261,32 +261,6 @@ export async function getNumberOfOrders(accountID) {
   return objects;
 }
 
-export async function getStock(stockID) {
-  let objects = [];
-  await fetch(`http://${url}/stock?stockID=${stockID}`)
-    .then((response) => response.json())
-    .then((response) => {
-      objects = response;
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  return objects;
-}
-
-export async function addStock(data) {
-  let objects = [];
-  await fetch(`http://${url}/stock/add?itemID=${data.itemID}` +
-    `&quantity=${data.quantity}&date='${data.date}'`)
-    .then((response) => response.json())
-    .then((response) => {
-      objects = response;
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  return objects;
-}
 
 export async function getCartItemsByID(cartItems) {
   let result = [];
